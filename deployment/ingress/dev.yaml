@@ -15,7 +15,7 @@ spec:
           service:
             name: www
             port:
-              number: 80
+              number: 8080
   tls:
   - hosts:
     - dev.support.tools

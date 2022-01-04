@@ -6,6 +6,7 @@ RUN cp hugo_0.18_linux_amd64/hugo_0.18_linux_amd64 /usr/bin/hugo
 COPY ./blog/ /site
 WORKDIR /site
 RUN /usr/bin/hugo
+
 FROM nginx:alpine
 LABEL maintainer Matthew Mattox mmattox@support.tools
 COPY ./conf/default.conf /etc/nginx/conf.d/default.conf
