@@ -7,6 +7,9 @@ platform:
   os: linux
   arch: amd64
 
+concurrency:
+  limit: 1
+
 steps:
   - name: Docker-Build
     image: plugins/docker
