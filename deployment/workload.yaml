@@ -62,7 +62,17 @@ spec:
           runAsNonRoot: true
           readOnlyRootFilesystem: true
           privileged: false
+        volumeMounts:
+        - mountPath: /var/cache/nginx
+          name: nginx-cache
+        - mountPath: /var/run
+          name: var-run
       securityContext:
         runAsUser: 1000
         runAsGroup: 3000
         fsGroup: 2000
+      volumes:
+      - emptyDir: {}
+        name: nginx-cache
+      - emptyDir: {}
+        name: var-run
