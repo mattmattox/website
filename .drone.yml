@@ -58,8 +58,7 @@ steps:
       kubernetes_token:
         from_secret: k8s_dev_token
     commands:
-      - kubectl get nodes --v=6
-      - echo $kubernetes_server
+      - bash /usr/local/bin/init-kubectl
       - kubectl create ns supporttools-website-master-${CI_BUILD_NUMBER}
       - kubectl label ns supporttools-website-master-${CI_BUILD_NUMBER} team=supporttools --overwrite
       - kubectl label ns supporttools-website-master-${CI_BUILD_NUMBER} app=supporttools-www --overwrite
@@ -77,6 +76,7 @@ steps:
       kubernetes_token:
         from_secret: k8s_dev_token
     commands:
+      - bash /usr/local/bin/init-kubectl    
       - if ! kubectl get ns supporttools-website-dev; then kubectl create ns supporttools-website-dev; fi
       - kubectl apply -n supporttools-website-dev -f /drone/src/deployment-ready/
       - kubectl apply -n supporttools-website-dev -f /drone/src/deployment/ingress/dev.yaml
