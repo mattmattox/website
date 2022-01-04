@@ -53,11 +53,12 @@ steps:
     image: supporttools/kube-builder:latest
     pull: always
     settings:
-      kubernetes_server:
+      KUBERNETES_SERVER:
         from_secret: k8s_dev_server
-      kubernetes_token:
+      KUBERNETES_TOKEN:
         from_secret: k8s_dev_token
     commands:
+      - kubectl get nodes --v=6
       - kubectl create ns supporttools-website-master-${CI_BUILD_NUMBER}
       - kubectl label ns supporttools-website-master-${CI_BUILD_NUMBER} team=supporttools --overwrite
       - kubectl label ns supporttools-website-master-${CI_BUILD_NUMBER} app=supporttools-www --overwrite
