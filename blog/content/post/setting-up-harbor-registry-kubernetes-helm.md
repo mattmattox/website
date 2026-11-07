@@ -17,6 +17,7 @@ quick_fix: |
   `helm upgrade --install harbor harbor/harbor -n harbor --create-namespace -f values.yaml`
   with at least `expose.ingress.hosts.core`, `expose.ingress.className`, `expose.tls.certSource: secret` plus `expose.tls.secret.secretName`, `externalURL` and a non-default admin password.
   Remove any `notary` keys from old values files: Notary was dropped in Harbor 2.9.
+images: ["https://cdn.support.tools/posts/setting-up-harbor-registry-kubernetes-helm/og-213f9d8b01.jpg"]
 ---
 
 **Harbor** is an open-source container registry with role-based access control, vulnerability scanning with Trivy, replication and image signature verification. This guide deploys it on Kubernetes with the official Helm chart, using values that work with the current chart (v1.19.x, Harbor v2.15.x at the time of this update).

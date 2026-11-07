@@ -10,6 +10,7 @@ author: "Matthew Mattox - mmattox@support.tools"
 description: "Learn how to optimize resource requests and limits in Kubernetes to balance cost and performance effectively while avoiding common pitfalls."
 more_link: "yes"
 url: "/optimizing-kubernetes-resources/"
+images: ["https://cdn.support.tools/posts/optimizing-kubernetes-resources/og-66cd78ef9d.jpg"]
 ---
 
 Balancing performance and cost in Kubernetes clusters often comes down to how well you manage resource requests and limits. Misconfigured workloads can lead to underutilized clusters or unstable applications. This comprehensive guide explores best practices, tools, and strategies to help you optimize your Kubernetes deployments effectively.

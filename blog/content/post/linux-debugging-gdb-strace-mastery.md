@@ -10,6 +10,7 @@ author: "Matthew Mattox - mmattox@support.tools"
 description: "Master Linux debugging with comprehensive coverage of GDB, strace, performance analysis tools, and advanced troubleshooting techniques for complex production issues"
 more_link: "yes"
 url: "/linux-debugging-gdb-strace-mastery/"
+images: ["https://cdn.support.tools/posts/linux-debugging-gdb-strace-mastery/og-0729b4ba54.jpg"]
 ---
 
 Debugging is an art that separates good developers from great ones. In the Linux ecosystem, powerful tools like GDB and strace, combined with kernel interfaces and performance analyzers, provide unprecedented visibility into program behavior. This guide explores advanced debugging techniques used to solve complex problems in production systems.

@@ -10,6 +10,7 @@ author: "Matthew Mattox - mmattox@support.tools"
 description: "A comprehensive guide to Unix signals, their types, handling mechanisms, and practical implementation examples for system administrators and developers"
 more_link: "yes"
 url: "/understanding-unix-signals/"
+images: ["https://cdn.support.tools/posts/understanding-unix-signals/og-5d92b776b9.jpg"]
 ---
 
 Unix signals are fundamental to process management and inter-process communication in Linux and Unix-like operating systems. They serve as software interrupts that notify processes of asynchronous events, making them essential for system administration and software development.

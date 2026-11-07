@@ -10,6 +10,7 @@ author: "Matthew Mattox - mmattox@support.tools"
 description: "Simplify your Kubernetes deployments with Helm. Learn how to create charts, manage values, and streamline your CI/CD workflows."
 more_link: "yes"
 url: "/streamlining-kubernetes-deployments-helm/"
+images: ["https://cdn.support.tools/posts/streamlining-kubernetes-deployments-helm/og-d6e22257ac.jpg"]
 ---
 
 Helm is the package manager for Kubernetes, enabling you to manage applications using reusable and customizable charts. This guide explores how to leverage Helm for efficient and scalable Kubernetes deployments.

@@ -17,6 +17,7 @@ quick_fix: |
   `dd if=/dev/urandom of=/root/zfs.key bs=32 count=1` and
   `zpool create -o ashift=12 -O encryption=on -O keyformat=raw -O keylocation=file:///root/zfs.key tank raidz1 /dev/disk/by-id/DISK1 /dev/disk/by-id/DISK2 /dev/disk/by-id/DISK3`.
   For a passphrase instead of a key file, use `-O keyformat=passphrase -O keylocation=prompt`.
+images: ["https://cdn.support.tools/posts/how-to-create-encrypted-zfs-pool/og-ff0945d1e0.jpg"]
 ---
 
 This guide creates a ZFS pool with OpenZFS native encryption on Linux, unlocks it automatically at boot from a key file, and covers the tuning, monitoring and backup steps that matter once the pool holds real data.

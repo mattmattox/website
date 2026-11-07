@@ -7,6 +7,7 @@ categories: ["Containers", "Automation"]
 author: "Matthew Mattox - mmattox@support.tools"
 description: "Learn how to optimize Dockerfile templating for scalability, efficiency, and automation in modern DevOps workflows, with practical examples and best practices."
 more_link: "https://support.tools/post/efficient-dockerfile-templating"
+images: ["https://cdn.support.tools/posts/efficient-dockerfile-templating/og-0bf13bc2bb.jpg"]
 ---
 
 ## Why Dockerfile Templating is Essential for Scalable Builds

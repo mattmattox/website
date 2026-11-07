@@ -10,6 +10,7 @@ author: "Matthew Mattox - mmattox@support.tools"
 description: "A comprehensive guide to implementing GitOps using ArgoCD in Kubernetes environments"
 more_link: "yes"
 url: "/implementing-gitops-with-argocd-and-kubernetes/"
+images: ["https://cdn.support.tools/posts/implementing-gitops-with-argocd-and-kubernetes/og-3defa1959a.jpg"]
 ---
 
 Learn how to implement GitOps practices using ArgoCD in your Kubernetes environment, including setup, best practices, and real-world examples.

@@ -10,6 +10,7 @@ author: "Matthew Mattox - mmattox@support.tools"
 description: "Learn how to install a production-ready Kubernetes cluster on Ubuntu using kubeadm. This comprehensive guide covers enabling swap support, configuring CgroupV2, setting up containerd, and troubleshooting common issues for a successful deployment."
 more_link: "yes"
 url: "/install-kubernetes-kubeadm-ubuntu/"
+images: ["https://cdn.support.tools/posts/install-kubernetes-kubeadm-ubuntu/og-64011fe0e3.jpg"]
 ---
 
 Setting up a Kubernetes cluster can be complex, but kubeadm simplifies the process significantly. This comprehensive guide walks you through installing a production-ready Kubernetes cluster on Ubuntu, with advanced features like swap support, CgroupV2 configuration, and containerd setup. Whether you're building a development environment or preparing for production deployment, this guide provides all the necessary steps and best practices.

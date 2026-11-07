@@ -11,6 +11,7 @@ author: "Matthew Mattox - mmattox@support.tools"
 description: "A comprehensive guide to implementing and managing Kubernetes Network Policies using Helm charts"
 more_link: "yes"
 url: "/integrating-network-policy-with-helm-for-enhanced-kubernetes-security/"
+images: ["https://cdn.support.tools/posts/integrating-network-policy-with-helm-for-enhanced-kubernetes-security/og-b7e6eaf7f7.jpg"]
 ---
 
 Learn how to enhance your Kubernetes cluster security by implementing Network Policies through Helm charts, including best practices and real-world examples.

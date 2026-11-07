@@ -11,6 +11,7 @@ author: "Matthew Mattox - mmattox@support.tools"
 description: "Learn how to deploy a centralized syslog server on Linux using rsyslog for efficient log management across multiple machines."
 more_link: "yes"
 url: "/deploy-syslog-server-linux/"
+images: ["https://cdn.support.tools/posts/deploy-syslog-server-linux/og-c8f610ea4f.jpg"]
 ---
 
 Efficient log management is crucial for system administrators and security professionals. Centralizing logs from multiple machines simplifies troubleshooting and enhances security monitoring. In this comprehensive guide, we'll walk you through deploying a syslog server on CentOS and configuring a Kali Linux client to send its logs to the syslog server.

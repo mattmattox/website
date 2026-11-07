@@ -10,6 +10,7 @@ author: "Matthew Mattox - mmattox@support.tools"
 description: "A guide on how to configure NRPE to run Nagios checks with root privileges securely"
 more_link: "yes"
 url: "/nagios-run-checks-as-root-with-nrpe/"
+images: ["https://cdn.support.tools/posts/nagios-run-checks-as-root-with-nrpe/og-9d06e42a03.jpg"]
 ---
 
 Learn how to configure NRPE to run Nagios checks with root privileges while maintaining security.

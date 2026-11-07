@@ -10,6 +10,7 @@ author: "Matthew Mattox - mmattox@support.tools"
 description: "A comprehensive guide to implementing and managing Pod Security Admission in Kubernetes"
 more_link: "yes"
 url: "/kubernetes-pod-security-admission-deep-dive/"
+images: ["https://cdn.support.tools/posts/kubernetes-pod-security-admission-deep-dive/og-b2fa38fa05.jpg"]
 ---
 
 Learn how to effectively implement and manage Pod Security Admission in Kubernetes to enhance your cluster's security posture.

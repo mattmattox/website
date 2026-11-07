@@ -11,6 +11,7 @@ author: "Matthew Mattox - mmattox@support.tools"
 description: "Comprehensive guide to VMware default passwords, credentials, and secure configuration practices for vCenter, ESXi, vSphere, and related components"
 more_link: "yes"
 url: "/vmware-default-passwords-security-guide/"
+images: ["https://cdn.support.tools/posts/vmware-default-passwords-security-guide/og-06030ee1f9.jpg"]
 ---
 
 Understanding VMware's default credentials is crucial for initial deployment and security hardening. This comprehensive guide covers default usernames, passwords, and security best practices across VMware's virtualization infrastructure components, including critical security warnings and modern authentication recommendations.

@@ -10,6 +10,7 @@ author: "Matthew Mattox"
 description: "A step-by-step guide to setting up Promtail on Ubuntu 20.04 for log aggregation with Grafana and Loki."
 more_link: "yes"
 url: "/setup-promtail-ubuntu-20-04/"
+images: ["https://cdn.support.tools/posts/setup-promtail-ubuntu-20-04/og-9bbcb2ad73.jpg"]
 ---
 
 # How to Set Up Promtail in Ubuntu 20.04

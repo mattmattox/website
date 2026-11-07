@@ -10,6 +10,7 @@ author: "Matthew Mattox - mmattox@support.tools"
 description: "Master Linux security mechanisms including capabilities, mandatory access controls, user namespaces, and advanced privilege separation techniques for building secure systems"
 more_link: "yes"
 url: "/linux-security-capabilities-deep-dive/"
+images: ["https://cdn.support.tools/posts/linux-security-capabilities-deep-dive/og-bbb190809b.jpg"]
 ---
 
 Linux security has evolved far beyond traditional Unix permissions. Modern Linux provides sophisticated security mechanisms including capabilities, mandatory access controls, user namespaces, and fine-grained privilege separation. Understanding these mechanisms is crucial for building secure applications and systems in today's threat landscape.

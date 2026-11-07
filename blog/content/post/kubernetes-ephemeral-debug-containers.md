@@ -10,6 +10,7 @@ author: "Matthew Mattox - mmattox@support.tools"
 description: "Learn how to leverage Kubernetes ephemeral debug containers for troubleshooting networking and DNS issues without altering your application pods."
 more_link: "yes"
 url: "/kubernetes-ephemeral-debug-containers/"
+images: ["https://cdn.support.tools/posts/kubernetes-ephemeral-debug-containers/og-d9ccb8108c.jpg"]
 ---
 
 **Kubernetes Ephemeral Debug Containers: A Game-Changer for Troubleshooting**

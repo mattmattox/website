@@ -9,6 +9,7 @@ author: "Matthew Mattox - mmattox@support.tools"
 description: "A guide on how to recover passwords saved in the Remmina Remote Desktop Client"
 more_link: "yes"
 url: "/extract-password-saved-in-remmina/"
+images: ["https://cdn.support.tools/posts/extract-password-saved-in-remmina/og-dc3957f34e.jpg"]
 ---
 
 Learn how to extract passwords that have been saved in the Remmina Remote Desktop Client.

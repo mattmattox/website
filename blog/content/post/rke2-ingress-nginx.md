@@ -16,6 +16,7 @@ quick_fix: |
   `kubectl -n kube-system logs ds/rke2-ingress-nginx-controller --tail=100` and `kubectl describe ingress <name>`.
   Change its settings with a `HelmChartConfig` named `rke2-ingress-nginx` in `kube-system`, never by editing the DaemonSet.
   Upstream ingress-nginx was retired in March 2026 and RKE2 v1.36+ installs Traefik on new clusters, so plan a move to Traefik or Gateway API.
+images: ["https://cdn.support.tools/posts/rke2-ingress-nginx/og-7c104bf500.jpg"]
 ---
 
 RKE2 ships the Ingress-NGINX controller as a packaged Helm chart, which makes it easy to run and easy to misconfigure. This guide covers where it lives on an RKE2 node, how to fix the common 404, 502 and TLS errors, a working `HelmChartConfig`, metrics and Grafana, and what the 2026 retirement of upstream ingress-nginx means for RKE2 clusters.

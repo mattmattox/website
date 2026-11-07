@@ -10,6 +10,7 @@ author: "Matthew Mattox - mmattox@support.tools"
 description: "A comprehensive guide to understanding and implementing cert-manager and Cluster Issuers in Kubernetes"
 more_link: "yes"
 url: "/cert-manager-deep-dive/"
+images: ["https://cdn.support.tools/posts/cert-manager-cluster-issuers-deep-dive/og-de1e417228.jpg"]
 ---
 
 Learn how cert-manager automates certificate management in Kubernetes and how to effectively use Cluster Issuers for TLS certificate automation.

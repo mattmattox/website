@@ -10,6 +10,7 @@ author: "Matthew Mattox - mmattox@support.tools"
 description: "Master systemd and modern Linux init systems, including service management, unit files, system architecture, advanced features, and troubleshooting techniques"
 more_link: "yes"
 url: "/systemd-modern-linux-init/"
+images: ["https://cdn.support.tools/posts/systemd-modern-linux-init/og-3e797746f8.jpg"]
 ---
 
 Systemd has become the dominant init system in modern Linux distributions, fundamentally changing how services are managed, systems boot, and processes are supervised. Understanding systemd's architecture and capabilities is essential for modern Linux system administration and service deployment.

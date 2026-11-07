@@ -11,6 +11,7 @@ author: "Matthew Mattox - mmattox@support.tools"
 description: "Comprehensive technical guide to GPG/PGP encryption covering key generation, message encryption/decryption, digital signatures, enterprise implementation, and advanced security practices"
 more_link: "yes"
 url: "/gpg-pgp-encryption-comprehensive-guide/"
+images: ["https://cdn.support.tools/posts/gpg-pgp-encryption-comprehensive-guide/og-bb3a876663.jpg"]
 ---
 
 GNU Privacy Guard (GPG) represents the gold standard for asymmetric encryption and digital signature implementation in modern computing environments. This comprehensive guide covers GPG fundamentals, practical implementation strategies, enterprise deployment considerations, and advanced cryptographic security practices for systems administrators and security professionals.

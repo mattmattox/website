@@ -10,6 +10,7 @@ author: "Matthew Mattox - mmattox@support.tools"
 description: "Explore the fundamentals of DNS, how it works, its database-like structure, and why it's a critical yet sometimes frustrating part of IT infrastructure."
 more_link: "yes"
 url: "/dns-basics-2/"
+images: ["https://cdn.support.tools/posts/dns-basics-2/og-3404892cb7.jpg"]
 ---
 
 By **Matthew Mattox**  

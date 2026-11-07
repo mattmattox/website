@@ -11,6 +11,7 @@ author: "Matthew Mattox - mmattox@support.tools"
 description: "Discover the top network scanning tools that help IT professionals identify devices, open ports, and potential vulnerabilities on their networks."
 more_link: "yes"
 url: "/essential-network-scanning-tools/"
+images: ["https://cdn.support.tools/posts/essential-network-scanning-tools/og-2d39864aca.jpg"]
 ---
 
 As an IT professional, being aware of all the devices on your network is crucial. Network scanning not only helps identify connected devices but also aids in detecting unauthorized access, checking for open ports, and uncovering potential vulnerabilities. In this post, we'll explore several essential network scanning tools that can enhance your network management and security practices.

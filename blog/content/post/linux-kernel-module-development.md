@@ -10,6 +10,7 @@ author: "Matthew Mattox - mmattox@support.tools"
 description: "Master Linux kernel module development from basic modules to complex device drivers, including character devices, memory management, interrupt handling, and kernel debugging techniques"
 more_link: "yes"
 url: "/linux-kernel-module-development/"
+images: ["https://cdn.support.tools/posts/linux-kernel-module-development/og-9de29da5fa.jpg"]
 ---
 
 Kernel module development opens the door to extending Linux functionality without recompiling the kernel. From simple modules to complex device drivers, understanding kernel programming is essential for systems programmers. This guide explores kernel module development, device driver creation, and advanced kernel programming techniques.

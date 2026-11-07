@@ -10,6 +10,7 @@ author: "Matthew Mattox - mmattox@support.tools"
 description: "Exploring why monitoring and observability often feel like a never-ending headache, this article dives into common pitfalls and offers practical suggestions to improve your approach."
 more_link: "yes"
 url: "/monitoring-is-a-pain-and-were-all-doing-it-wrong/"
+images: ["https://cdn.support.tools/posts/monitoring-is-a-pain-and-were-all-doing-it-wrong/og-a551f461b1.jpg"]
 ---
 
 **And we're all doing it wrong (including me).**

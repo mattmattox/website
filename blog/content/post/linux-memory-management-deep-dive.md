@@ -10,6 +10,7 @@ author: "Matthew Mattox - mmattox@support.tools"
 description: "Comprehensive exploration of Linux memory management including virtual memory, page tables, memory allocation strategies, NUMA, and performance optimization techniques"
 more_link: "yes"
 url: "/linux-memory-management-deep-dive/"
+images: ["https://cdn.support.tools/posts/linux-memory-management-deep-dive/og-6fdbb1828f.jpg"]
 ---
 
 Memory management is one of the most critical and complex subsystems in the Linux kernel. Understanding how Linux manages memory—from virtual address translation to page replacement algorithms—is essential for writing high-performance applications and diagnosing memory-related issues. This guide explores Linux memory management from userspace APIs to kernel internals.

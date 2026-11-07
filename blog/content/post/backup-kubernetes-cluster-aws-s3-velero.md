@@ -13,6 +13,7 @@ more_link: "yes"
 url: "/backup-kubernetes-cluster-aws-s3-velero/"
 socialMedia:  
   buffer: true
+images: ["https://cdn.support.tools/posts/backup-kubernetes-cluster-aws-s3-velero/og-7e12018660.jpg"]
 ---
 
 Ensuring the safety and recoverability of your Kubernetes cluster is critical, especially in production environments. Velero, a powerful open-source tool, simplifies the process of backing up Kubernetes cluster resources to cloud storage, such as AWS S3. In this guide, we'll walk through how to set up Velero to back up your Kubernetes cluster resources to an AWS S3 bucket.

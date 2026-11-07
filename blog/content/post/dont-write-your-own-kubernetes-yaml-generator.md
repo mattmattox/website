@@ -10,6 +10,7 @@ author: "Matthew Mattox - mmattox@support.tools"
 description: "Learn why building an internal Kubernetes YAML generator might not be the best approach, and explore alternatives like yq, Kustomize, and the Kubernetes client library."
 more_link: "yes"
 url: "/dont-write-your-own-kubernetes-yaml-generator/"
+images: ["https://cdn.support.tools/posts/dont-write-your-own-kubernetes-yaml-generator/og-abca86969d.jpg"]
 ---
 
 **Why Building Your Own YAML Generator Might Be a Mistake**

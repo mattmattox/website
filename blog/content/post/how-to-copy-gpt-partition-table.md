@@ -10,6 +10,7 @@ author: "Matthew Mattox - mmattox@support.tools"
 description: "A quick guide on copying a GPT partition table between disks when setting up RAID or disk cloning."
 more_link: "yes"
 url: "/how-to-copy-gpt-partition-table/"
+images: ["https://cdn.support.tools/posts/how-to-copy-gpt-partition-table/og-646e4cc35a.jpg"]
 ---
 
 ## Why Copy GPT Partition Tables?

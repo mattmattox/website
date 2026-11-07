@@ -16,6 +16,7 @@ quick_fix: |
   Install ingress-nginx with `controller.service.type: ClusterIP` and the annotation `cloud.google.com/neg: '{"exposed_ports": {"80":{"name": "ingress-nginx-80-neg-http"}}}'`,
   then attach that NEG to a global backend service with `--load-balancing-scheme=EXTERNAL_MANAGED`, a health check on `/healthz`, and a firewall rule for `130.211.0.0/22` and `35.191.0.0/16`.
   ingress-nginx was retired upstream in March 2026, so for new GKE work use GKE Gateway API (`gatewayClassName: gke-l7-global-external-managed`) instead.
+images: ["https://cdn.support.tools/posts/setup-nginx-ingress-gke/og-19802bf8d9.jpg"]
 ---
 
 This guide puts the community ingress-nginx controller behind a Google Cloud Application Load Balancer on GKE using standalone Network Endpoint Groups (NEGs), adds a test application, and shows the internal variant. Because ingress-nginx is now retired, it ends with the GKE Gateway API path that Google documents as the replacement.
