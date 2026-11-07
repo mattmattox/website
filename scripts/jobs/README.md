@@ -41,6 +41,26 @@ Merging: a bot PR lands without a human because the repo settings allow it:
 While yesterday's nightly cards PR is still open, the nightly cards job stops at the
 next run.
 
+Behind main: `Test` is a strict required check (the branch must be up to date with
+main), and GitHub never updates a branch by itself, so a bot PR that another PR
+overtook sits `BEHIND` with auto-merge on and never merges (PR #104 on 2026-11-07).
+The jobs recover it themselves (App mode only; `lib.sh`):
+
+- After opening its PR, `publish_changes` waits for it to merge, up to
+  `BOT_PR_WAIT_SECONDS` (default 1200; Test takes about 7 minutes), polling every
+  `BOT_PR_POLL_SECONDS` (default 60). Each time the PR is `BEHIND` it calls
+  `PUT /repos/{owner}/{repo}/pulls/{n}/update-branch` (what `gh pr update-branch`
+  calls) with the head sha it read. The App's `pull-requests: write` covers that.
+  `0` disables the wait; no wait when auto-merge could not be requested.
+- `cards-nightly.sh` (through `refuse_if_earlier_bot_pr`) and `daily-publish.sh`
+  first update every open `bot/*` PR that is `BEHIND`. The nightly cards job still
+  stops while its earlier PR is open (its manifest is not on main yet); the update
+  lets that PR merge, so the next night runs.
+- None of this fails a job: a refused update (a conflict, or a main that changed
+  `.github/workflows` since the branch forked, which needs the `workflows`
+  permission the App does not have) is a warning naming the `gh pr update-branch`
+  command to run by hand.
+
 ## Push-only fallbacks (TaskForge supporttools-website-990, unused today)
 
 Before the `supporttools-publisher-bot` App existed the jobs ran with a credential

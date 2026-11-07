@@ -12,6 +12,8 @@ cd "$(dirname "$0")/../.."
 . scripts/jobs/lib.sh
 
 git diff --cached --quiet || { echo "index already has staged changes; stopping"; exit 1; }
+# A bot PR (any kind) stalled BEHIND main never merges on its own; nudge it daily.
+[ -n "${JOB_DRY_RUN:-}" ] || update_behind_bot_prs
 stage_card_changes
 
 urls_new=0

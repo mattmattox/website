@@ -54,15 +54,25 @@ beforeEach(() => {
   git(clone, 'remote', 'add', 'origin', bare);
   git(clone, 'push', '-q', 'origin', 'main');
   // Fake gh: logs its argv; `pr list` prints FAKE_GH_PRS (or fails with
-  // FAKE_GH_LIST_FAIL); `pr view` finds no PR; `pr merge` fails with FAKE_GH_MERGE_FAIL.
+  // FAKE_GH_LIST_FAIL); `pr view <branch>` finds no PR, except that its number query
+  // prints FAKE_GH_PR_NUMBER when set; `pr view <number>` prints the next line of the
+  // FAKE_GH_VIEW_SEQ file (the last line repeats; no file: fails); `pr merge` fails
+  // with FAKE_GH_MERGE_FAIL; `api` (update-branch) fails with FAKE_GH_UPDATE_FAIL.
   mkdirSync(join(root, 'bin'));
   writeFileSync(join(root, 'bin/gh'), [
     '#!/usr/bin/env bash',
     'echo "$*" >> "$FAKE_GH_LOG"',
     'case "$1 $2" in',
     '  "pr list") [ -z "${FAKE_GH_LIST_FAIL:-}" ] || { echo "HTTP 401: Bad credentials" >&2; exit 1; }; printf "%s" "${FAKE_GH_PRS:-}" ;;',
-    '  "pr view") exit 1 ;;',
+    '  "pr view")',
+    '    if [[ $3 =~ ^[0-9]+$ ]]; then',
+    '      [ -s "${FAKE_GH_VIEW_SEQ:-/nonexistent}" ] || exit 1',
+    '      head -n1 "$FAKE_GH_VIEW_SEQ"',
+    '      [ "$(wc -l < "$FAKE_GH_VIEW_SEQ")" -le 1 ] || sed -i 1d "$FAKE_GH_VIEW_SEQ"',
+    '    elif [[ " $* " == *" -q .number "* && -n "${FAKE_GH_PR_NUMBER:-}" ]]; then echo "$FAKE_GH_PR_NUMBER"',
+    '    else exit 1; fi ;;',
     '  "pr merge") [ -z "${FAKE_GH_MERGE_FAIL:-}" ] || { echo "Auto merge is not allowed for this repository" >&2; exit 1; } ;;',
+    '  "api "*) [ -z "${FAKE_GH_UPDATE_FAIL:-}" ] || { echo "HTTP 422: merge conflict between base and head" >&2; exit 1; } ;;',
     'esac',
   ].join('\n'));
   chmodSync(join(root, 'bin/gh'), 0o755);
@@ -127,6 +137,102 @@ test('a gh failure listing PRs stops the job instead of reading as "no open PR"'
   const r = sh('refuse_if_earlier_bot_pr nightly-cards', { FAKE_GH_LIST_FAIL: '1' });
   assert.equal(r.code, 1, r.out);
   assert.match(r.out, /cannot list open PRs; refusing to run/);
+});
+
+// A bot PR that another PR overtook sits BEHIND main (strict required check) and never
+// merges by itself; the jobs ask GitHub to update its branch (2026-11-07, PR #104).
+const updateCalls = () => (existsSync(ghLog) ? readFileSync(ghLog, 'utf8').split('\n').filter((l) => l.startsWith('api ')) : []);
+const SHA1 = 'a'.repeat(40);
+const SHA2 = 'b'.repeat(40);
+
+test('an earlier bot PR left BEHIND main gets its branch updated; the job still stops until it merges', () => {
+  const prs = [
+    `bot/nightly-cards-20000101 104 BEHIND ${SHA1}`,
+    `bot/daily-publish-20000101 105 BEHIND ${SHA2}`,
+    `bot/daily-publish-20000102 106 BLOCKED ${SHA2}`,
+    `bot/nightly-cards-${day()} 107 BEHIND ${SHA2}`,
+  ].join('\n');
+  const r = sh('refuse_if_earlier_bot_pr nightly-cards', { FAKE_GH_PRS: prs });
+  assert.equal(r.code, 1, r.out);
+  assert.match(r.out, /earlier nightly-cards PR still open \(bot\/nightly-cards-20000101 \)/);
+  assert.match(r.out, /PR #104 was behind main; asked GitHub to update its branch/);
+  // Every BEHIND bot PR (any kind, today's too), with the head it was read at; never a BLOCKED one.
+  assert.deepEqual(updateCalls(), [
+    `api -X PUT repos/SupportTools/website/pulls/104/update-branch -f expected_head_sha=${SHA1} --silent`,
+    `api -X PUT repos/SupportTools/website/pulls/105/update-branch -f expected_head_sha=${SHA2} --silent`,
+    `api -X PUT repos/SupportTools/website/pulls/107/update-branch -f expected_head_sha=${SHA2} --silent`,
+  ]);
+  assert.match(readFileSync(ghLog, 'utf8'), /pr list -R SupportTools\/website --state open --limit 100 --json headRefName,number,mergeStateStatus,headRefOid/);
+});
+
+test('a refused branch update only warns: the earlier-PR check decides alone, and update_behind_bot_prs never fails', () => {
+  const prs = `bot/daily-publish-20000101 104 BEHIND ${SHA1}\n`;
+  let r = sh('refuse_if_earlier_bot_pr nightly-cards; echo reached', { FAKE_GH_PRS: prs, FAKE_GH_UPDATE_FAIL: '1' });
+  assert.equal(r.code, 0, r.out);
+  assert.match(r.out, /WARNING: could not update the branch of PR #104 \(behind main\); run: gh pr update-branch 104 -R SupportTools\/website/);
+  assert.match(r.out, /reached/);
+  r = sh('update_behind_bot_prs; echo reached', { FAKE_GH_PRS: prs, FAKE_GH_UPDATE_FAIL: '1' });
+  assert.equal(r.code, 0, r.out);
+  assert.match(r.out, /reached/);
+  // A failed listing is not fatal here either (refuse_if_earlier_bot_pr still fails on it).
+  r = sh('update_behind_bot_prs; echo reached', { FAKE_GH_LIST_FAIL: '1' });
+  assert.equal(r.code, 0, r.out);
+  assert.match(r.out, /WARNING: cannot list open PRs; behind bot PRs not updated/);
+  assert.match(r.out, /reached/);
+});
+
+test('publish_changes waits for its PR and updates the branch each time it falls BEHIND, until it merges', () => {
+  writeFileSync(join(clone, 'scripts/og/manifest.json'), '{"a":{"status":"batched"}}\n');
+  const seq = join(root, 'view.seq');
+  writeFileSync(seq, [`OPEN BLOCKED ${SHA1}`, `OPEN BEHIND ${SHA1}`, `OPEN BEHIND ${SHA1}`, `OPEN BLOCKED ${SHA2}`, `OPEN BEHIND ${SHA2}`, `MERGED CLEAN ${SHA2}`].join('\n') + '\n');
+  const r = sh('stage_card_changes; publish_changes daily-publish "chore(urls): 1 newly published URLs"', {
+    FAKE_GH_PR_NUMBER: '104', FAKE_GH_VIEW_SEQ: seq, BOT_PR_POLL_SECONDS: '0',
+  });
+  assert.equal(r.code, 0, r.out);
+  assert.match(r.out, /PR #104 merged/);
+  // Once per head: the second BEHIND read of SHA1 (GitHub still catching up) is not a second request.
+  assert.deepEqual(updateCalls(), [
+    `api -X PUT repos/SupportTools/website/pulls/104/update-branch -f expected_head_sha=${SHA1} --silent`,
+    `api -X PUT repos/SupportTools/website/pulls/104/update-branch -f expected_head_sha=${SHA2} --silent`,
+  ]);
+  assert.match(readFileSync(ghLog, 'utf8'), /pr view 104 -R SupportTools\/website --json state,mergeStateStatus,headRefOid/);
+});
+
+test('the wait is bounded and never fails the job: still open, closed, unreadable, or disabled', () => {
+  const seq = join(root, 'view.seq');
+  const run = (lines, env = {}) => {
+    if (lines) writeFileSync(seq, lines.join('\n') + '\n'); else rmSync(seq, { force: true });
+    return sh('wait_for_bot_pr 104; echo reached', { FAKE_GH_VIEW_SEQ: seq, BOT_PR_POLL_SECONDS: '0', ...env });
+  };
+  let r = run([`OPEN BEHIND ${SHA1}`], { BOT_PR_WAIT_SECONDS: '1' });
+  assert.equal(r.code, 0, r.out);
+  assert.match(r.out, /PR #104 still open after 1s \(BEHIND\); auto-merge stays on/);
+  assert.equal(updateCalls().length, 1);
+  r = run([`CLOSED BEHIND ${SHA1}`]);
+  assert.match(r.out, /WARNING: PR #104 was closed without merging/);
+  assert.match(r.out, /reached/);
+  r = run(null);
+  assert.match(r.out, /WARNING: cannot read PR #104; not waiting for it to merge/);
+  assert.match(r.out, /reached/);
+  rmSync(ghLog, { force: true });
+  r = run([`OPEN BEHIND ${SHA1}`], { BOT_PR_WAIT_SECONDS: '0' });
+  assert.equal(r.code, 0, r.out);
+  assert.equal(existsSync(ghLog), false);
+});
+
+test('no wait when auto-merge was refused (a human merges) or the PR number cannot be read', () => {
+  writeFileSync(join(clone, 'scripts/og/manifest.json'), '{"a":{"status":"batched"}}\n');
+  const seq = join(root, 'view.seq');
+  writeFileSync(seq, `OPEN BEHIND ${SHA1}\n`);
+  let r = sh('stage_card_changes; publish_changes nightly-cards "chore(og): state"', { FAKE_GH_MERGE_FAIL: '1', FAKE_GH_PR_NUMBER: '104', FAKE_GH_VIEW_SEQ: seq });
+  assert.equal(r.code, 0, r.out);
+  assert.doesNotMatch(readFileSync(ghLog, 'utf8'), /pr view 104/);
+  assert.equal(updateCalls().length, 0);
+  writeFileSync(join(clone, 'scripts/og/manifest.json'), '{"a":{"status":"batched","batch":"x"}}\n');
+  r = sh('stage_card_changes; publish_changes nightly-cards "chore(og): state"', { FAKE_GH_VIEW_SEQ: seq });
+  assert.equal(r.code, 0, r.out);
+  assert.match(r.out, /WARNING: cannot read the PR number for bot\/nightly-cards-\d{8}; not waiting for it to merge/);
+  assert.equal(updateCalls().length, 0);
 });
 
 test('an added list item or blank line counts as another edit; only the images line is staged', () => {
@@ -202,6 +308,9 @@ for (const [mode, env] of Object.entries(PUSH_ONLY)) {
     // The merged PR's branch is deleted: the job runs again.
     git(clone, 'push', '-q', 'origin', ':refs/heads/bot/nightly-cards-20000101');
     r = sh('refuse_if_earlier_bot_pr nightly-cards', env);
+    assert.equal(r.code, 0, r.out);
+    // No gh, so no branch updates either.
+    r = sh('update_behind_bot_prs', { ...env, FAKE_GH_PRS: `bot/nightly-cards-20000101 104 BEHIND ${SHA1}` });
     assert.equal(r.code, 0, r.out);
     assert.equal(existsSync(ghLog), false);
   });

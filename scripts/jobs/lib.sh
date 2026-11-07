@@ -15,6 +15,13 @@
 # `Test` check is required, so that is once CI passes on the branch push. A failed
 # auto-merge request is reported, not fatal (the PR is already open).
 #
+# The required check is strict (the branch must be up to date with main), and GitHub
+# never updates a branch on its own: a bot PR that another PR overtook sits BEHIND
+# with auto-merge on and never merges. So publish_changes waits a bounded time for
+# its PR and updates the branch whenever it is BEHIND (wait_for_bot_pr), and
+# refuse_if_earlier_bot_pr (or update_behind_bot_prs on its own) first updates any
+# open bot/* PR left BEHIND. Both only warn when GitHub refuses the update.
+#
 # Push-only fallbacks (TaskForge supporttools-website-990; nothing uses them today):
 # website-job can export WEBSITE_GIT_MODE as one of
 #   deploy-key     cloned and pushing over SSH with a write deploy key (GIT_DEPLOY_KEY),
@@ -91,9 +98,51 @@ push_only_mode() {
   return 1
 }
 
+# Lists open bot/* PRs as "<branch> <number> <mergeStateStatus> <head sha>" lines.
+# Fails when gh does (the caller decides whether that is fatal).
+list_open_bot_prs() {
+  gh pr list -R "$JOB_REPO" --state open --limit 100 \
+    --json headRefName,number,mergeStateStatus,headRefOid \
+    -q '.[] | select(.headRefName | startswith("bot/")) | "\(.headRefName) \(.number) \(.mergeStateStatus) \(.headRefOid)"'
+}
+
+# Asks GitHub to merge main into PR <number>'s branch (REST update-branch, the call
+# behind `gh pr update-branch`). The expected head sha makes GitHub refuse rather than
+# update a branch that moved since it was read. The App's pull-requests write covers
+# the call; if main changed .github/workflows since the branch forked, GitHub also
+# wants the workflows permission, which the App does not have, so failure only warns.
+update_bot_pr_branch() {
+  local n=$1 sha=$2
+  if gh api -X PUT "repos/${JOB_REPO}/pulls/${n}/update-branch" -f expected_head_sha="$sha" --silent; then
+    job_log "PR #$n was behind main; asked GitHub to update its branch"
+  else
+    echo "WARNING: could not update the branch of PR #$n (behind main); run: gh pr update-branch $n -R $JOB_REPO" >&2
+    return 1
+  fi
+}
+
+# Updates every open bot/* PR that is BEHIND main. Takes list_open_bot_prs output as
+# $1, or lists itself (no-op in the push-only fallbacks). Never fails the job: a PR
+# it cannot update stays open, and the next run (or a human) tries again.
+update_behind_bot_prs() {
+  local prs branch n mss sha
+  if [ "$#" -gt 0 ]; then
+    prs=$1
+  else
+    if push_only_mode; then return 0; fi
+    prs=$(list_open_bot_prs) || { echo "WARNING: cannot list open PRs; behind bot PRs not updated" >&2; return 0; }
+  fi
+  while read -r branch n mss sha; do
+    [ -n "$branch" ] && [ "$mss" = BEHIND ] && [ -n "$n" ] && [ -n "$sha" ] || continue
+    update_bot_pr_branch "$n" "$sha" || true
+  done <<<"$prs"
+}
+
 # Exits 1 when a PR from an earlier bot/<kind>-* branch is still open: its changes
 # (for nightly-cards, the batch ids of art already paid for) are not on main yet,
-# and running again from main would lose or repeat them.
+# and running again from main would lose or repeat them. In App mode it first
+# updates open bot/* PRs that are BEHIND main, so a PR stalled that way merges once
+# Test passes and the next run proceeds (this run still stops: it is not on main yet).
 refuse_if_earlier_bot_pr() {
   local kind=$1 prs open
   if push_only_mode; then
@@ -106,8 +155,10 @@ refuse_if_earlier_bot_pr() {
     prs=$(sed -n 's#^[0-9a-f]*[[:space:]]*refs/heads/##p' <<<"$prs")
   else
     # A gh failure (auth, rate limit, network) must stop the job, not read as "no PR".
-    prs=$(gh pr list -R "$JOB_REPO" --state open --limit 100 --json headRefName -q '.[].headRefName') \
+    prs=$(list_open_bot_prs) \
       || { echo "cannot list open PRs; refusing to run" >&2; return 1; }
+    update_behind_bot_prs "$prs"
+    prs=$(awk '{ print $1 }' <<<"$prs")
   fi
   open=$(grep "^bot/${kind}-" <<<"$prs" | grep -vx "bot/${kind}-${JOB_DAY}" || true)
   if [ -n "$open" ]; then
@@ -208,7 +259,49 @@ publish_changes() {
   # Fails while the repo's auto-merge setting is off. The PR is open either way, so
   # this only warns; the next run's refuse_if_earlier_bot_pr still guards against a
   # PR nobody merged.
+  local automerge=1 n
   gh pr merge "$branch" -R "$JOB_REPO" --auto --squash \
-    || echo "WARNING: auto-merge not enabled for $branch (is the repo's auto-merge setting on?); a human must merge it" >&2
+    || { automerge=; echo "WARNING: auto-merge not enabled for $branch (is the repo's auto-merge setting on?); a human must merge it" >&2; }
   echo "pushed $branch ($(git rev-parse --short HEAD)): $title"
+  # Keep the PR up to date with main until it merges (bounded; see wait_for_bot_pr).
+  [ -n "$automerge" ] || return 0
+  if n=$(gh pr view "$branch" -R "$JOB_REPO" --json number -q .number) && [ -n "$n" ]; then
+    wait_for_bot_pr "$n"
+  else
+    echo "WARNING: cannot read the PR number for $branch; not waiting for it to merge" >&2
+  fi
+}
+
+# Waits up to BOT_PR_WAIT_SECONDS (default 1200; CI Test takes about 7 minutes) for
+# PR <number> to merge, polling every BOT_PR_POLL_SECONDS (default 60), and updates
+# its branch whenever it is BEHIND main (another PR merged first). Never fails the
+# job: a PR still open at the end keeps auto-merge, and the next run's
+# update_behind_bot_prs updates it if it falls behind again. 0 disables the wait.
+wait_for_bot_pr() {
+  local n=$1 wait=${BOT_PR_WAIT_SECONDS:-1200} poll=${BOT_PR_POLL_SECONDS:-60}
+  local deadline info state mss sha updated=
+  [ "$wait" -gt 0 ] 2>/dev/null || return 0
+  deadline=$(($(date +%s) + wait))
+  while :; do
+    if ! info=$(gh pr view "$n" -R "$JOB_REPO" --json state,mergeStateStatus,headRefOid -q '"\(.state) \(.mergeStateStatus) \(.headRefOid)"'); then
+      echo "WARNING: cannot read PR #$n; not waiting for it to merge" >&2
+      return 0
+    fi
+    read -r state mss sha <<<"$info"
+    case "$state" in
+      MERGED) job_log "PR #$n merged"; return 0 ;;
+      CLOSED) echo "WARNING: PR #$n was closed without merging" >&2; return 0 ;;
+    esac
+    # Once per head sha: just after an update GitHub can still report the old head
+    # as BEHIND, and expected_head_sha would refuse a second request anyway.
+    if [ "$mss" = BEHIND ] && [ "$sha" != "$updated" ]; then
+      update_bot_pr_branch "$n" "$sha" || true
+      updated=$sha
+    fi
+    if [ "$(date +%s)" -ge "$deadline" ]; then
+      job_log "PR #$n still open after ${wait}s ($mss); auto-merge stays on, and the next run updates it if it is behind"
+      return 0
+    fi
+    sleep "$poll"
+  done
 }
