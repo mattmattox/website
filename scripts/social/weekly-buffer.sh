@@ -4,7 +4,11 @@
 # ones to publish "approved"; scripts/social/guard.sh promote schedules each approved
 # draft once its article is live, and guard.sh preflight pulls any post whose link
 # fails right before it goes out.
-#   0 18 * * 0 /path/to/website/scripts/social/weekly-buffer.sh
+#
+# Not scheduled anymore: since 2026-11-08 the publisher CronJob weekly-social runs
+# scripts/jobs/weekly-social.sh (the API drafter, scripts/social/weekly-drafter.mjs)
+# at the same time, Sunday 18:00 America/Chicago. Kept for a manual run on a
+# workstation.
 #
 # Runs `claude -p` with the Buffer connector (remote MCP, logged in under the
 # operator's claude account). Allowed tools are read-only on the repo plus the
