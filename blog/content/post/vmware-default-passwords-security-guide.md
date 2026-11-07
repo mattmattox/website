@@ -654,6 +654,8 @@ if __name__ == "__main__":
 /usr/lib/vmware-vmafd/bin/dir-cli user modify --account administrator --user-password NewPassword123! --login administrator@vsphere.local --password CurrentPassword
 ```
 
+If the login page instead says "User name and password are required" even with the correct password, the account is probably fine; see [vCenter "User name and password are required": causes and fixes](/vcenter-user-name-and-password-are-required/).
+
 ### ESXi Root Account Lockout
 ```bash
 # Boot ESXi host into troubleshooting mode
