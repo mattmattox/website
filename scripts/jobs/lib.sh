@@ -305,3 +305,19 @@ wait_for_bot_pr() {
     sleep "$poll"
   done
 }
+
+# Writes the per-post check report (scripts/check-posts.mjs) to CHECK_RESULTS_OUT, which
+# "publisher job run --check-results FILE" sets for its child and stores in the console's
+# check_results after the job exits. Unset: does nothing. Never fails the job: a report
+# that cannot be written is a warning and leaves no file, so a stale one is never stored.
+write_check_results() {
+  [ -n "${CHECK_RESULTS_OUT:-}" ] || return 0
+  rm -f "$CHECK_RESULTS_OUT"
+  if node scripts/check-posts.mjs --json --out "$CHECK_RESULTS_OUT"; then
+    job_log "check results written to $CHECK_RESULTS_OUT"
+  else
+    rm -f "$CHECK_RESULTS_OUT"
+    echo "WARNING: check results not written (scripts/check-posts.mjs failed)" >&2
+  fi
+  return 0
+}

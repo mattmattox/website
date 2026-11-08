@@ -6,12 +6,15 @@
 # that went live since the last run in tests/fixtures/published-urls.txt (the CI
 # URL guard), built from a clean export of HEAD. Opens an auto-merge PR on
 # bot/daily-publish-<day>; never pushes main. "nothing new" and exit 0 otherwise.
+# First, with CHECK_RESULTS_OUT set (publisher job run --check-results), it writes
+# the per-post check report the console shows on Post detail (write_check_results).
 set -euo pipefail
 cd "$(dirname "$0")/../.."
 # shellcheck source=scripts/jobs/lib.sh
 . scripts/jobs/lib.sh
 
 git diff --cached --quiet || { echo "index already has staged changes; stopping"; exit 1; }
+write_check_results
 # A bot PR (any kind) stalled BEHIND main never merges on its own; nudge it daily.
 [ -n "${JOB_DRY_RUN:-}" ] || update_behind_bot_prs
 stage_card_changes

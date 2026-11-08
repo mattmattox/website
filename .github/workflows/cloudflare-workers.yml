@@ -100,6 +100,14 @@ jobs:
         # ratchet started, so only tags new to the repo can fail here.
         run: npm run check:tags
 
+      - name: Check spelling
+        # cspell (cspell-lib, an npm dependency installed above from the Verdaccio
+        # mirror) over post prose. Words come from English, cspell's bundled
+        # software dictionaries and scripts/spelling/tech-terms.txt; a post can
+        # list its own words under spellcheck_ignore in its frontmatter.
+        # scripts/spelling-baseline.json accepts the legacy misspellings per file.
+        run: npm run check:spelling
+
       - name: Test Hugo build
         run: |
           npm run build:hugo -- --panicOnWarning
@@ -117,7 +125,7 @@ jobs:
       - name: Check code blocks use theme syntax colors, not inline styles
         run: npm run check:inline-colors
 
-      - name: Unit tests (theme, social link guards, URL guard, IndexNow, SEO guards, share cards, in-cluster jobs)
+      - name: Unit tests (theme, social link guards, URL guard, IndexNow, SEO guards, share cards, in-cluster jobs, content check reports)
         # The job tests mock every API (Anthropic, OpenAI, Buffer, Wasabi, GitHub via a
         # fake gh) and fail on any unmocked fetch; no key is needed or used.
         run: |
@@ -127,6 +135,7 @@ jobs:
           npm run test:indexnow
           npm run test:og
           env -u ANTHROPIC_API_KEY -u OPENAI_API_KEY npm run test:jobs
+          npm run test:checks
           npm run test:theme
 
       - name: Check for expired content

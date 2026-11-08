@@ -9,11 +9,14 @@
 // so the existing single-use tags pass, and retiring a post never fails the
 // check. A new tag passes once a second post uses it. Spelling variants of a
 // known tag (case, spaces, hyphens, underscores) get a pointer to the known one.
-// Usage: node scripts/check-tags.mjs [--write-baseline]
+// Usage: node scripts/check-tags.mjs [--write-baseline | --json [--out FILE]]
+// --json prints every file's result (scripts/lib/check-report.mjs) and exits 0;
+// a single-use tag the baseline knows is a baseline-accepted fail on its post.
 import { readFileSync, writeFileSync, readdirSync } from 'node:fs';
 import { join, relative, basename } from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { parseFrontmatterList } from './lib/frontmatter.mjs';
+import { result, report, writeReport } from './lib/check-report.mjs';
 
 const CONTENT_DIR = 'blog/content';
 const BASELINE_PATH = 'scripts/tag-baseline.json';
@@ -41,19 +44,37 @@ export function tagUsage(files) {
   return usage;
 }
 
-export function checkTags(files, known) {
+// singleUse lists every tag used by exactly one post, with the message for it
+// and whether the baseline (known) accepts it.
+function singleUse(files, known) {
   const byLoose = new Map();
   for (const k of known) if (!byLoose.has(looseKey(k))) byLoose.set(looseKey(k), k);
-  const failures = [];
+  const out = [];
   for (const [key, { name, files: users }] of tagUsage(files)) {
-    if (users.length !== 1 || known.has(key)) continue;
+    if (users.length !== 1) continue;
+    if (known.has(key)) {
+      out.push({ path: users[0], accepted: true, message: `tag "${name}" is used by no other post (its /tags/ page is thin)` });
+      continue;
+    }
     const variant = byLoose.get(looseKey(key));
     const hint = variant
       ? `it is a spelling variant of existing tag "${variant}"; use "${variant}"`
       : 'reuse an existing tag, or add it only when a second post shares it';
-    failures.push(`${users[0]}: tag "${name}" is used by no other post (its /tags/ page would be thin); ${hint}`);
+    out.push({ path: users[0], accepted: false, message: `tag "${name}" is used by no other post (its /tags/ page would be thin); ${hint}` });
   }
-  return failures.sort();
+  return out;
+}
+
+export function checkTags(files, known) {
+  return singleUse(files, known).filter((u) => !u.accepted).map((u) => `${u.path}: ${u.message}`).sort();
+}
+
+// fileResults is the per-file form of checkTags, for --json. _index files are
+// not posts and never carry a finding.
+export function fileResults(files, known) {
+  const byPath = new Map(files.map(([path]) => [path, { failures: [], accepted: [] }]));
+  for (const u of singleUse(files, known)) byPath.get(u.path)[u.accepted ? 'accepted' : 'failures'].push(u.message);
+  return [...byPath].map(([path, f]) => result(path, 'tags', f.failures.sort(), f.accepted.sort()));
 }
 
 function walk(dir) {
@@ -76,6 +97,9 @@ if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) 
     const keys = [...tagUsage(files).keys()].sort();
     writeFileSync(BASELINE_PATH, `${JSON.stringify(keys, null, 2)}\n`);
     console.log(`Wrote ${keys.length} known tags to ${BASELINE_PATH}`);
+  } else if (process.argv.includes('--json')) {
+    const known = new Set(JSON.parse(readFileSync(BASELINE_PATH, 'utf8')));
+    writeReport(report(['tags'], fileResults(files, known)));
   } else {
     const known = new Set(JSON.parse(readFileSync(BASELINE_PATH, 'utf8')));
     const usage = tagUsage(files);

@@ -18,10 +18,13 @@
     "check:categories": "node scripts/check-categories.mjs",
     "check:paths": "node scripts/check-duplicate-paths.mjs",
     "check:tags": "node scripts/check-tags.mjs",
+    "check:spelling": "node scripts/check-spelling.mjs",
+    "check:posts": "node scripts/check-posts.mjs --json",
     "check:headers": "node scripts/headers-guard.mjs production blog/public",
     "test:theme": "node tests/theme/build-fixtures.mjs && node --test tests/theme/*.test.mjs",
     "test:og": "node --test tests/og/*.test.mjs",
     "test:jobs": "node --test tests/jobs/*.test.mjs",
+    "test:checks": "node --test tests/checks/*.test.mjs",
     "og": "node scripts/og/run.mjs",
     "check:urls": "node scripts/check-published-urls.mjs",
     "urls:update": "node scripts/check-published-urls.mjs --update",
@@ -47,6 +50,7 @@
   "author": "Support Tools",
   "license": "MIT",
   "dependencies": {
-    "@anthropic-ai/sdk": "0.137.0"
+    "@anthropic-ai/sdk": "0.137.0",
+    "cspell-lib": "10.4.0"
   }
 }

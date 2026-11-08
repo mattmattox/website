@@ -4,11 +4,13 @@
 // may carry at most 4, and names containing "/" or "&" are only accepted when
 // the allow-list names them explicitly. Case and hyphen/space variants of an
 // allowed name are rejected with a pointer to the canonical spelling.
-// Usage: node scripts/check-categories.mjs [--write-allowlist]
+// Usage: node scripts/check-categories.mjs [--write-allowlist | --json [--out FILE]]
+// --json prints every file's result (scripts/lib/check-report.mjs) and exits 0.
 import { readFileSync, writeFileSync, readdirSync } from 'node:fs';
 import { join, relative } from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { unquote, parseCategories, parseFrontmatter } from './lib/frontmatter.mjs';
+import { result, report, writeReport } from './lib/check-report.mjs';
 
 export { parseCategories, parseFrontmatter };
 
@@ -62,6 +64,14 @@ export function checkFiles(files, allowlist) {
   return failures;
 }
 
+// fileResults is the per-file form of checkFiles, for --json.
+export function fileResults(files, allowlist) {
+  return files.map(([path, text]) => {
+    const { categories, errors } = parseFrontmatter(text);
+    return result(path, 'categories', [...errors, ...checkPost(categories, allowlist)]);
+  });
+}
+
 export function collectCategories(files) {
   const set = new Set();
   for (const [, text] of files) for (const c of parseCategories(text)) set.add(c);
@@ -90,6 +100,9 @@ if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) 
       cats.map((c) => `- ${yamlQuote(c)}`).join('\n') + '\n';
     writeFileSync(ALLOWLIST_PATH, body);
     console.log(`Wrote ${cats.length} categories to ${ALLOWLIST_PATH}`);
+  } else if (process.argv.includes('--json')) {
+    const allowlist = parseAllowlist(readFileSync(ALLOWLIST_PATH, 'utf8'));
+    writeReport(report(['categories'], fileResults(files, allowlist)));
   } else {
     const allowlist = parseAllowlist(readFileSync(ALLOWLIST_PATH, 'utf8'));
     const failures = checkFiles(files, allowlist);

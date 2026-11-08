@@ -12,7 +12,7 @@ from the clone.
 | Kind | Script | Does |
 |---|---|---|
 | `nightly-cards` | `cards-nightly.sh` | OpenAI Batch art: collect, finish drawn cards (Anthropic or, interim, OpenAI review; Wasabi upload), submit the next `OG_NIGHTLY_LIMIT` (default 40); commits the manifest and posts |
-| `daily-publish` | `daily-publish.sh` | URL baseline (`tests/fixtures/published-urls.txt`) and any uncommitted live cards |
+| `daily-publish` | `daily-publish.sh` | Per-post check report for the console (`scripts/check-posts.mjs`, written to `CHECK_RESULTS_OUT` when the runner's `--check-results` sets it), URL baseline (`tests/fixtures/published-urls.txt`) and any uncommitted live cards |
 | `weekly-social` | `weekly-social.sh` | `scripts/social/weekly-drafter.mjs`: next week's Buffer drafts, then `guard.mjs check` |
 
 A script that changes files commits on `bot/<kind>-<YYYYMMDD>` (America/Chicago),

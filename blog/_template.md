@@ -11,6 +11,7 @@ author: "Matthew Mattox - mmattox@support.tools"
 description: "TEMPLATE"  # Add a brief description
 more_link: "yes"
 url: "/template/"  # Adjust as per the content
+# spellcheck_ignore: ["Onosecond"]  # Optional: words only this post uses that the spell check (scripts/check-spelling.mjs) does not know; site-wide terms go in scripts/spelling/tech-terms.txt
 # quick_fix: "One or two sentences with the exact command and the version it applies to"  # Optional: renders a Quick fix box at the top of the post
 # Design guides only (all optional; the Applicability panel renders when applies_to or last_validated is set):
 # Quote version numbers: unquoted 1.30 is parsed as a number and renders as 1.3

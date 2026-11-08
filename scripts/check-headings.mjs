@@ -4,11 +4,14 @@
 // first body heading is measured against the page title (level 1).
 // Legacy violators are listed in scripts/heading-baseline.json and exempt;
 // everything else must be clean.
-// Usage: node scripts/check-headings.mjs [--write-baseline]
+// Usage: node scripts/check-headings.mjs [--write-baseline | --json [--out FILE]]
+// --json prints every file's result (scripts/lib/check-report.mjs) and exits 0;
+// a baselined file that still has violations is a baseline-accepted fail.
 import { readFileSync, writeFileSync, readdirSync } from 'node:fs';
 import { join, relative } from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { extractHeadings } from './lib/markdown-headings.mjs';
+import { result, report, writeReport } from './lib/check-report.mjs';
 
 const CONTENT_DIR = 'blog/content';
 const BASELINE_PATH = 'scripts/heading-baseline.json';
@@ -40,6 +43,15 @@ export function checkFiles(files, baseline = []) {
   return failures;
 }
 
+// fileResults is the per-file form of checkFiles, for --json.
+export function fileResults(files, baseline = []) {
+  const exempt = new Set(baseline);
+  return files.map(([path, text]) => {
+    const v = findViolations(text);
+    return exempt.has(path) ? result(path, 'headings', [], v) : result(path, 'headings', v);
+  });
+}
+
 export function violatingPaths(files) {
   return files.filter(([, text]) => findViolations(text).length > 0).map(([path]) => path).sort();
 }
@@ -64,6 +76,9 @@ if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) 
     const paths = violatingPaths(files);
     writeFileSync(BASELINE_PATH, JSON.stringify(paths, null, 2) + '\n');
     console.log(`Wrote ${paths.length} legacy files to ${BASELINE_PATH}`);
+  } else if (process.argv.includes('--json')) {
+    const baseline = JSON.parse(readFileSync(BASELINE_PATH, 'utf8'));
+    writeReport(report(['headings'], fileResults(files, baseline)));
   } else {
     const baseline = JSON.parse(readFileSync(BASELINE_PATH, 'utf8'));
     const failures = checkFiles(files, baseline);

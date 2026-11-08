@@ -276,6 +276,44 @@ test('baked node_modules at another version are not used; with no mirror the ins
   assert.equal(existsSync(join(clone, 'node_modules')), false);
 });
 
+// write_check_results: the per-post report for the console (publisher job run
+// --check-results). A stub scripts/check-posts.mjs stands in for the real checks.
+function stubCheckPosts(body) {
+  writeFileSync(join(clone, 'scripts/check-posts.mjs'), body);
+}
+
+test('write_check_results does nothing without CHECK_RESULTS_OUT', () => {
+  stubCheckPosts('throw new Error("must not run");\n');
+  const r = sh('write_check_results', { CHECK_RESULTS_OUT: '' });
+  assert.equal(r.code, 0, r.out);
+  assert.equal(r.out, '');
+});
+
+test('write_check_results writes the report where CHECK_RESULTS_OUT points', () => {
+  stubCheckPosts([
+    "import { writeFileSync } from 'node:fs';",
+    "const a = process.argv; writeFileSync(a[a.indexOf('--out') + 1], JSON.stringify({ version: 1, json: a.includes('--json') }));",
+  ].join('\n'));
+  const out = join(root, 'checks.json');
+  const r = sh('write_check_results', { CHECK_RESULTS_OUT: out });
+  assert.equal(r.code, 0, r.out);
+  assert.match(r.out, /check results written to/);
+  assert.deepEqual(JSON.parse(readFileSync(out, 'utf8')), { version: 1, json: true });
+});
+
+test('write_check_results only warns when the checks fail, and leaves no stale file', () => {
+  stubCheckPosts([
+    "import { writeFileSync } from 'node:fs';",
+    "const a = process.argv; writeFileSync(a[a.indexOf('--out') + 1], 'partial'); process.exit(3);",
+  ].join('\n'));
+  const out = join(root, 'checks.json');
+  writeFileSync(out, '{"version":1,"stale":true}');
+  const r = sh('write_check_results', { CHECK_RESULTS_OUT: out });
+  assert.equal(r.code, 0, r.out);
+  assert.match(r.out, /WARNING: check results not written/);
+  assert.equal(existsSync(out), false);
+});
+
 // Push-only fallbacks (TaskForge supporttools-website-990, unused today): no gh call,
 // whatever GH_TOKEN holds. deploy-key has no token; app-push-only has an App token without
 // pull-requests permission, so a gh call would be refused.
