@@ -12,13 +12,14 @@
 //
 // All three also check every link against the content files (the real page path,
 // draft state, live time) and every share card. Results go to stdout, to the
-// Pushgateway (job blog_social_guard, alerts in cluster-services
-// monitoring/a1-ops-prd/blog-metrics-alerts.yaml) and, on problems, a desktop
+// Pushgateway (job blog_social_guard, alerts in the publisher chart's
+// rules/social-guard.rules.yaml) and, on problems, a desktop
 // notification when there is a desktop. Exit 0 = clean, 2 = problems found, 1 = the run failed.
 //
-// The scheduled runs are a1-ops-prd CronJobs (cluster-services
-// monitoring/a1-ops-prd/blog-social-guard.yaml) that clone main and run this file;
-// scripts/social/guard.sh is for manual runs on a workstation.
+// The scheduled runs are the publisher chart's social-guard CronJobs (namespace
+// publisher; moved from cluster-services blog-social-guard.yaml, #25332), which clone
+// main and run scripts/jobs/social-guard.sh; scripts/social/guard.sh is for manual
+// runs on a workstation.
 import { execFileSync } from 'node:child_process';
 import fs from 'node:fs';
 import os from 'node:os';

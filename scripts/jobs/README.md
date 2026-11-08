@@ -14,6 +14,7 @@ from the clone.
 | `nightly-cards` | `cards-nightly.sh` | OpenAI Batch art: collect, finish drawn cards (Anthropic or, interim, OpenAI review; Wasabi upload), submit the next `OG_NIGHTLY_LIMIT` (default 40); commits the manifest and posts |
 | `daily-publish` | `daily-publish.sh` | Per-post check report for the console (`scripts/check-posts.mjs`, written to `CHECK_RESULTS_OUT` when the runner's `--check-results` sets it), URL baseline (`tests/fixtures/published-urls.txt`) and any uncommitted live cards |
 | `weekly-social` | `weekly-social.sh` | `scripts/social/weekly-drafter.mjs`: next week's Buffer drafts, then `guard.mjs check` |
+| `social-guard-preflight-am`, `-preflight-pm`, `-promote-night`, `-promote-am`, `-check` | `social-guard.sh <command>` (preflight, promote or check) | `tests/social`, then `scripts/social/guard.mjs <command>` (moved from the cluster-services `blog-social-guard` CronJobs, #25332). Edits Buffer posts only (preflight drafts, promote schedules); changes no files. Its clone token is narrowed to `contents` read (`WEBSITE_TOKEN_READ_ONLY=1`), and the script drops it before running |
 
 A script that changes files commits on `bot/<kind>-<YYYYMMDD>` (America/Chicago),
 pushes that branch, opens a PR and requests auto-merge (squash); it never pushes
