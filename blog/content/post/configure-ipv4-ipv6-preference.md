@@ -12,6 +12,7 @@ author: "Matthew Mattox - mmattox@support.tools"
 description: "Force apt to use IPv4 with Acquire::ForceIPv4 in apt.conf.d or a one-off -o flag, and make Linux or Ubuntu prefer IPv4 system-wide with gai.conf."
 more_link: "yes"
 url: "/configure-ipv4-ipv6-preference/"
+images: ["https://cdn.support.tools/posts/configure-ipv4-ipv6-preference/og-e32360a85d.jpg"]
 ---
 
 A comprehensive guide to managing IPv4 and IPv6 preferences in Linux systems, helping you optimize network connectivity and resolve common issues.

@@ -10,6 +10,7 @@ author: "Matthew Mattox - mmattox@support.tools"
 description: "Master ELF binary analysis and reverse engineering with advanced techniques for static and dynamic analysis, anti-debugging bypass, and malware investigation"
 more_link: "yes"
 url: "/advanced-elf-binary-analysis-reverse-engineering/"
+images: ["https://cdn.support.tools/posts/advanced-elf-binary-analysis-reverse-engineering/og-1437f6a2f8.jpg"]
 ---
 
 Understanding ELF (Executable and Linkable Format) binaries is fundamental to Linux security, malware analysis, and systems programming. This guide explores advanced techniques for analyzing, reverse engineering, and understanding binary executables at the deepest level.

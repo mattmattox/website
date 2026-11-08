@@ -10,6 +10,7 @@ author: "Matthew Mattox - mmattox@support.tools"
 description: "A step-by-step guide to migrating workloads from RKE1 to RKE2 using YAML Export/Import."
 more_link: "yes"
 url: "/migrating-rke1-to-rke2-yaml/"
+images: ["https://cdn.support.tools/posts/migrating-rke1-to-rke2-yaml/og-54ddfe6589.jpg"]
 ---
 
 Migrating from **RKE1 to RKE2** can be done in multiple ways, and one of the simplest is **YAML Export/Import**. This method is ideal for **stateless workloads** where persistent storage migration is not required. It’s a fast and effective way to move Deployments, Services, ConfigMaps, and other Kubernetes resources with minimal dependencies.

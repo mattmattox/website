@@ -10,6 +10,7 @@ author: "Matthew Mattox - mmattox@support.tools"
 description: "Comprehensive comparison of Kubernetes v1.32 'Penelope' and v1.33 'Octarine' releases with detailed analysis of stable, beta, and alpha features. Essential guide for planning your cluster upgrades with practical implementation examples."
 more_link: "yes"
 url: "/kubernetes-v1-32-v1-33-comparison-key-features/"
+images: ["https://cdn.support.tools/posts/kubernetes-v1-32-v1-33-comparison-key-features/og-fee09ef033.jpg"]
 ---
 
 ![Kubernetes Release Comparison](/images/posts/kubernetes-releases/k8s-v1-32-v1-33-comparison.svg)

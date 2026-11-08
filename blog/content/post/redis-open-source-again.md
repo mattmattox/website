@@ -11,6 +11,7 @@ author: "Matthew Mattox - mmattox@support.tools"
 description: "Redis 8 returns to open source with AGPLv3 and introduces vector search capabilities. But after community migration to Valkey and trust erosion, we analyze if the move comes too late."
 more_link: "yes"
 url: "/redis-open-source-again/"
+images: ["https://cdn.support.tools/posts/redis-open-source-again/og-941a6a7944.jpg"]
 ---
 
 Redis 8 just landed—and with it, a stunning twist in the open source world. After a controversial license change in 2024 that sparked community uproar and gave rise to forks like Valkey, Redis is back under an OSI-approved license: **AGPLv3**.

@@ -11,6 +11,7 @@ author: "Matthew Mattox - mmattox@support.tools"
 description: "Learn how to set up a highly available PostgreSQL cluster using the CloudNativePG (CNPG) PostgreSQL Operator in Kubernetes."
 more_link: "yes"
 url: "/high-availability-setup-cnpg-postgresql-operator/"
+images: ["https://cdn.support.tools/posts/high-availability-setup-cnpg-postgresql-operator/og-06542ee77c.jpg"]
 ---
 
 Ensuring high availability (HA) for your databases is crucial in modern production environments. PostgreSQL, a powerful open-source relational database, can achieve HA through various methods. In this guide, we'll walk you through setting up a highly available PostgreSQL cluster using the **CloudNativePG (CNPG) PostgreSQL Operator** in a Kubernetes environment.

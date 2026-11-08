@@ -11,6 +11,7 @@ author: "Matthew Mattox - mmattox@support.tools"
 description: "Learn how to resolve Persistent Volume (PV) conflicts in Kubernetes multi-AZ clusters using nodeSelector and StorageClasses."
 more_link: "yes"
 url: "/multi-az-persistent-volumes/"
+images: ["https://cdn.support.tools/posts/multi-az-persistent-volumes/og-f3585032ad.jpg"]
 ---
 
 Managing Persistent Volumes (PVs) in a multi-AZ Kubernetes cluster can be a challenging task. If you're running your Kubernetes cluster on AWS with EBS volumes as PVs, you've likely encountered the dreaded issue of evicted pods when they are rescheduled to nodes in different availability zones (AZs).  

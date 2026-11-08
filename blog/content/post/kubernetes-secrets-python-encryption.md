@@ -11,6 +11,7 @@ author: "Matthew Mattox - mmattox@support.tools"
 description: "A lightweight and straightforward approach to managing Kubernetes secrets using Python and Fernet encryption."
 more_link: "yes"
 url: "/kubernetes-secrets-python-encryption/"
+images: ["https://cdn.support.tools/posts/kubernetes-secrets-python-encryption/og-f0a4a9302f.jpg"]
 ---
 
 Managing secrets in Kubernetes can be challenging, especially during early stages of a project. Here’s a lightweight solution using Python and Fernet encryption to streamline the process without the overhead of complex setups.

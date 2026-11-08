@@ -11,6 +11,7 @@ author: "Matthew Mattox - mmattox@support.tools"
 description: "Learn how to efficiently schedule Nagios downtimes using cURL commands, perfect for automation and scripting scenarios. This guide includes practical examples and best practices for system administrators."
 more_link: "yes"
 url: "/nagios-downtime-command-line-curl/"
+images: ["https://cdn.support.tools/posts/nagios-downtime-command-line-curl/og-0dd719e510.jpg"]
 ---
 
 Discover how to programmatically manage Nagios downtimes using cURL, enabling automated maintenance windows and reducing alert noise during planned system work.

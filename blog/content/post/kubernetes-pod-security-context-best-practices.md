@@ -11,6 +11,7 @@ author: "Matthew Mattox - mmattox@support.tools"
 description: "A comprehensive guide to implementing and managing Pod Security Contexts in Kubernetes for enhanced container security"
 more_link: "yes"
 url: "/kubernetes-pod-security-context-best-practices/"
+images: ["https://cdn.support.tools/posts/kubernetes-pod-security-context-best-practices/og-9db3d7cdad.jpg"]
 ---
 
 Learn how to enhance your Kubernetes cluster security by properly implementing Pod Security Contexts, including best practices and real-world examples.

@@ -11,6 +11,7 @@ author: "Matthew Mattox - mmattox@support.tools"
 description: "Build a NAT64 gateway with Tayga and a DNS64 resolver with BIND 9 so IPv6-only clients reach IPv4 hosts: tayga.conf, routes, NAT44, the dns64 option, tests."
 more_link: "yes"
 url: "/nat64-dns64-ipv6-transition-enterprise-guide/"
+images: ["https://cdn.support.tools/posts/nat64-dns64-ipv6-transition-enterprise-guide/og-5669694137.jpg"]
 ---
 
 NAT64 lets IPv6-only clients reach IPv4-only servers: DNS64 synthesizes an AAAA record inside a NAT64 prefix such as `64:ff9b::/96`, and a NAT64 gateway translates packets sent to that prefix into IPv4. This page gives a working Tayga gateway and BIND 9 resolver first, then the high-availability, monitoring and prefix planning material for larger networks.

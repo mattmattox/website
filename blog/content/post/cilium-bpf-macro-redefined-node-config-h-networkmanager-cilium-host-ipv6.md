@@ -11,6 +11,7 @@ author: "Matthew Mattox - mmattox@support.tools"
 description: "Cilium endpoint BPF compiles failing with 'MONITOR_AGGREGATION macro redefined' are a symptom. Root cause: NetworkManager disabled IPv6 on cilium_host, so node_config.h was never written."
 more_link: "yes"
 url: "/cilium-bpf-macro-redefined-node-config-h-networkmanager-cilium-host-ipv6/"
+images: ["https://cdn.support.tools/posts/cilium-bpf-macro-redefined-node-config-h-networkmanager-cilium-host-ipv6/og-f14810b406.jpg"]
 ---
 
 One Kubernetes node stopped giving pods a network. Every other node in the cluster was fine. New pods on the bad node sat in `ContainerCreating` until the CNI ADD call timed out, and the Cilium agent log on that node was a wall of clang errors:

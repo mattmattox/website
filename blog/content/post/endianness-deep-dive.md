@@ -10,6 +10,7 @@ author: "Matthew Mattox - mmattox@support.tools"
 description: "A comprehensive exploration of endianness, its impact on system design, cross-platform development, and network programming with practical examples and detection techniques"
 more_link: "yes"
 url: "/endianness-deep-dive/"
+images: ["https://cdn.support.tools/posts/endianness-deep-dive/og-94076c8c2b.jpg"]
 ---
 
 Endianness remains one of those fundamental computer architecture concepts that can bite developers when they least expect it. Whether you're debugging network protocols, working with binary file formats, or developing cross-platform applications, understanding byte order is crucial for avoiding subtle and frustrating bugs.

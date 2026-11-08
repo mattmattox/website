@@ -8,6 +8,7 @@ author: "Matthew Mattox - mmattox@support.tools"
 description: "Master Kubernetes debugging with our comprehensive guide covering kubectl, k9s, Prometheus, and essential troubleshooting tools. Learn advanced techniques for debugging pods, nodes, networking issues, and monitoring cluster health."
 keywords: ["kubernetes debugging", "k8s troubleshooting", "kubectl commands", "kubernetes monitoring", "cluster debugging", "kubernetes observability", "k9s tool", "prometheus grafana kubernetes", "kubernetes network debugging", "pod troubleshooting"]
 url: "/kubernetes-debugging-tools/"
+images: ["https://cdn.support.tools/posts/kubernetes-debugging-tools/og-a64554283d.jpg"]
 ---
 
 Debugging Kubernetes clusters effectively is crucial for maintaining reliable container orchestration in production environments. Whether you're troubleshooting pod crashes, investigating network connectivity issues, or optimizing cluster performance, having the right debugging tools and knowledge is essential. This comprehensive guide covers the most powerful Kubernetes debugging tools and techniques used by DevOps professionals and Site Reliability Engineers (SREs).

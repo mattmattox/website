@@ -10,6 +10,7 @@ author: "Matthew Mattox - mmattox@support.tools"
 description: "A comprehensive guide to semaphores in Linux, covering POSIX and System V implementations, advanced patterns, performance considerations, and practical solutions for complex synchronization problems"
 more_link: "yes"
 url: "/semaphores-synchronization-patterns/"
+images: ["https://cdn.support.tools/posts/semaphores-synchronization-patterns/og-8ad103648a.jpg"]
 ---
 
 Semaphores are fundamental synchronization primitives that have stood the test of time since Dijkstra introduced them in 1965. In modern Linux systems, they remain essential for coordinating access to shared resources, implementing producer-consumer patterns, and solving complex synchronization problems that mutexes alone cannot handle elegantly.

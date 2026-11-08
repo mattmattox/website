@@ -10,6 +10,7 @@ author: "Matthew Mattox - mmattox@support.tools"
 description: "Explore the latest Kubernetes 1.31 features, from AppArmor improvements to nftables in kube-proxy, and how they can enhance your workflows."
 more_link: "yes"
 url: "/kubernetes-1-31-features/"
+images: ["https://cdn.support.tools/posts/kubernetes-1-31-features/og-f6c5e34a0f.jpg"]
 ---
 
 Kubernetes 1.31 is packed with features that redefine how we interact with and optimize our containerized workloads. Whether you’re into performance boosts or fine-tuning your cluster's security, this release has something for everyone. Let’s explore the top five features you don’t want to miss.  

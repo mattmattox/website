@@ -16,6 +16,7 @@ quick_fix: |
   `kubectl exec -it dnsutils -- nslookup kubernetes.default`. If that fails, check `kubectl -n kube-system get pods -l k8s-app=kube-dns` and their logs.
   With NodeLocal DNSCache, also query the node cache directly: `kubectl exec -it dnsutils -- nslookup kubernetes.default 169.254.20.10`.
   If CoreDNS works but the node cache does not, the cache pod or its redirect (iptables, or a Cilium Local Redirect Policy) is the problem.
+images: ["https://cdn.support.tools/posts/coredns-nodelocaldns-troubleshooting-monitoring/og-612c22a183.jpg"]
 ---
 
 DNS is the cornerstone of any Kubernetes cluster. CoreDNS answers cluster DNS queries, and NodeLocal DNSCache puts a caching resolver on every node in front of it. This guide explains how both work on RKE2, how to enable NodeLocal DNSCache with Canal or Cilium, how to troubleshoot failures and latency, and which Prometheus metrics to watch.

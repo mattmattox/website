@@ -11,6 +11,7 @@ author: "Matthew Mattox - mmattox@support.tools"
 description: "Complete enterprise guide to building production-grade Kubernetes environments from home lab to data center, advanced networking with MetalLB, comprehensive automation frameworks, and enterprise deployment strategies"
 more_link: "yes"
 url: "/enterprise-kubernetes-home-lab-production-deployment-comprehensive-guide/"
+images: ["https://cdn.support.tools/posts/enterprise-kubernetes-home-lab-production-deployment-comprehensive-guide/og-3924c2d274.jpg"]
 ---
 
 Building enterprise-grade Kubernetes environments requires comprehensive understanding of container orchestration, advanced networking configurations, and production deployment strategies that scale from home labs to global data centers. This guide covers advanced Kubernetes architectures, enterprise networking with MetalLB and Flannel, production automation frameworks, and comprehensive deployment strategies for mission-critical container workloads.

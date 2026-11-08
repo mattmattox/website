@@ -11,6 +11,7 @@ author: "Matthew Mattox - mmattox@support.tools"
 description: "A detailed guide to migrating workloads from RKE1 to RKE2 using Longhorn's Disaster Recovery volumes, offering a Kubernetes-native approach with minimal downtime."
 more_link: "yes"
 url: "/migrating-rke1-to-rke2-longhorn/"
+images: ["https://cdn.support.tools/posts/migrating-rke1-to-rke2-longhorn/og-3faf1870d7.jpg"]
 ---
 
 With RKE1 reaching its end-of-life on July 31, 2025, organizations running Longhorn for persistent storage have a powerful built-in option for migration to RKE2. Longhorn's Disaster Recovery (DR) volumes provide a Kubernetes-native approach that synchronizes data directly between clusters for efficient, low-downtime migration.
