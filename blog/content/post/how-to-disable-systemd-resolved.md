@@ -36,6 +36,6 @@ echo 'nameserver 1.0.0.1' >> /etc/resolv.conf
 # [References](#references)
 
 - [My War on Systemd-resolved](https://ohthehugemanatee.org/blog/2018/01/25/my-war-on-systemd-resolved/)
-- [Disabling systemd-resolvd service on Ubuntu systems](https://www.unixgr.com/disabling-systemd-resolvd-service-on-ubuntu-systems/)
+- [Disabling systemd-resolved service on Ubuntu systems](https://www.unixgr.com/disabling-systemd-resolvd-service-on-ubuntu-systems/)
 - [AskUbuntu - How do I disable systemd-resolved and replace with something sane on Ubuntu 18?](https://askubuntu.com/questions/1081832/how-do-i-disable-systemd-resolved-and-replace-with-something-sane-on-ubuntu-18/1081835)
 - [How to correctly disable systemd-resolved on Ubuntu 18.04](https://blog.mesouug.com/2018/09/22/how-to-correctly-disable-systemd-resolved-on-ubuntu-18-04/)

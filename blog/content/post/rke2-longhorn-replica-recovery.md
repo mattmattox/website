@@ -220,7 +220,7 @@ cp -rp /mnt/longhorn/important-data /tmp/backup/
 rsync -av /mnt/longhorn/ /tmp/backup/
 ```
 
-You can also create a volume in Longhorn and mount it in maintense mode to this same node copy the data directly to the new volume.
+You can also create a volume in Longhorn and mount it in maintenance mode to this same node copy the data directly to the new volume.
 
 
 ## Step 6: Clean Up After Recovery

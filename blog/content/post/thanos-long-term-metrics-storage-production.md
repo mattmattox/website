@@ -26,9 +26,7 @@ Thanos consists of several components working together:
 
 - **Sidecar**: Uploads Prometheus data to object storage
 - **Store Gateway**: Serves metrics from object storage
-- **Compactor**: Compacts and downsam
-
-ples metrics
+- **Compactor**: Compacts and downsamples metrics
 - **Query**: Provides global query view
 - **Query Frontend**: Caches and splits queries
 - **Ruler**: Evaluates recording/alerting rules

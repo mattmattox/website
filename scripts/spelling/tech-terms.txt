@@ -1229,7 +1229,6 @@ pingora
 pitr
 pktgen
 pldi
-ples
 pmap
 pmax
 pmem

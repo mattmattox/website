@@ -779,6 +779,6 @@ Kubescape provides a unified Kubernetes security scanning platform that bridges 
 
 - Use Kubescape for API-plane compliance (NSA, MITRE ATT&CK, CIS controls against Pod/RBAC/NetworkPolicy configurations), kube-bench for node-level CIS validation, and Trivy for container image CVE scanning — the three tools are complementary, not competitive
 - The Kubescape Operator's continuous scanning with Prometheus metrics export enables proactive compliance monitoring and regression alerting without manual scan execution
-- Configure exceptions early for known-acceptable risk decisions (privileged node-exporter DaemonSets, legitimate cluster-admin bindings); undifferentiated noise from unfilterd scans causes teams to ignore genuine findings
+- Configure exceptions early for known-acceptable risk decisions (privileged node-exporter DaemonSets, legitimate cluster-admin bindings); undifferentiated noise from unfiltered scans causes teams to ignore genuine findings
 - Embed manifest scanning in CI pipelines with SARIF upload to GitHub Code Scanning to catch misconfigurations before they reach the cluster; the `--fail-threshold` flag enables soft enforcement with grace periods during remediation
 - The compliance score is a lagging indicator; configure alert rules on specific high-severity controls (privileged container detection, cluster-admin binding changes) for immediate notification of critical security regressions

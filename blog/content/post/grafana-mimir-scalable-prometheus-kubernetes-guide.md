@@ -26,7 +26,7 @@ Understanding Mimir's position requires comparing it to the two established alte
 
 ### Thanos
 
-Thanos extends existing Prometheus instances rather than replacing them. A Thanos Sidecar attaches to each Prometheus pod, uploads TSDB blocks to object storage, and makes them queryable through the Thanos Query layer. This approach preserves existing Prometheus deployments but adds operational complexity: every Prometheus instance requires a sidecar, the query layer must be aware of all Prometheus instances, and global deduplification requires the `external_labels` configuration to be consistent across all instances.
+Thanos extends existing Prometheus instances rather than replacing them. A Thanos Sidecar attaches to each Prometheus pod, uploads TSDB blocks to object storage, and makes them queryable through the Thanos Query layer. This approach preserves existing Prometheus deployments but adds operational complexity: every Prometheus instance requires a sidecar, the query layer must be aware of all Prometheus instances, and global deduplication requires the `external_labels` configuration to be consistent across all instances.
 
 Thanos shines when the operational model requires keeping local Prometheus instances for reliability reasons — for example, when object storage is not always accessible. The local Prometheus instance still works during a cloud connectivity interruption.
 

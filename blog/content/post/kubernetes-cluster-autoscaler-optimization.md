@@ -776,7 +776,7 @@ spec:
 
 ## Advanced Features
 
-### Overprovising for Faster Scaling
+### Overprovisioning for Faster Scaling
 
 **Pause Pods for Buffer Capacity:**
 

@@ -19,7 +19,7 @@ ldm client exception: Error trying to leave AD, error code [1332], user [mmattox
 <!--more-->
 # [Leaving Domain via CLI](#leaving-domain-via-cli)
 
-We are going to assume you have ssh and shell access to your vCenter applicance.
+We are going to assume you have ssh and shell access to your vCenter appliance.
 
 - Run the command `/opt/likewise/bin/domainjoin-cli query`
 

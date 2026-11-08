@@ -23,4 +23,4 @@ Unfortunately, this is normal due to:
 - Reduce LoginTimeout (Dell recommends LoginTimeout=60, but that's a "wait." Try 20.)
 - Make it all static. (Meh, too much work.)
 
-Additional troublshooting: Alt+F12 for console logs.
+Additional troubleshooting: Alt+F12 for console logs.

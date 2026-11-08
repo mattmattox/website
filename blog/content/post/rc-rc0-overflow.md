@@ -32,7 +32,7 @@ Jun 24 04:35:27 a0ubnucp02 kernel: [ 2025.660897] rc rc0: receive overflow
 
 This error is cause by the built-in IR receiver on the Intel NUC. I didn't even know that they had one. But because they are being used as Kubernetes nodes there is no need for this. So we are going to disable this module.
 
-## Temprary disable IR receiver
+## Temporarily disable IR receiver
 Run command: `sudo modprobe -r ite_cir`
 
 You should see this message in the logs and the `receive overflow` messages should stop.

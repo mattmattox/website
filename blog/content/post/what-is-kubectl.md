@@ -53,7 +53,7 @@ Windows:
 curl.exe -LO "https://dl.k8s.io/release/v1.25.0/bin/windows/amd64/kubectl.exe"
 ```
 
-# [Configurtion](#configurtion)
+# [Configuration](#configuration)
 Before using kubectl, you need to configure it to connect to a Kubernetes cluster. This typically involves setting the KUBECONFIG environment variable to point to a configuration file that contains the necessary connection information.
 
 To create a configuration file, you can use the kubectl config command. For example, the following command creates a new configuration file in the default location ($HOME/.kube/config) and sets the KUBECONFIG environment variable to point to it:

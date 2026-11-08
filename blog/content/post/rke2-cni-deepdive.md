@@ -77,7 +77,7 @@ The following diagram illustrates how the Canal works:
 - [Increase log level for Canal](https://www.suse.com/support/kb/doc/?id=000020075)
 - [Flannel troubleshooting documentation](https://coreos.com/flannel/docs/latest/troubleshooting.html)
 
-#### [Canal Offical Links](#canal-offical-links)
+#### [Canal Official Links](#canal-official-links)
 
 - [Documentation](https://docs.tigera.io/calico/latest/about/)
 - [GitHub](https://github.com/projectcalico/canal)
@@ -121,10 +121,10 @@ The following diagram illustrates how Cilium works:
 
 #### [Cilium Troubleshooting](#cilium-troubleshooting)
 
-- [Offical Cilium Troubleshooting Guide](https://docs.cilium.io/en/stable/operations/troubleshooting/)
+- [Official Cilium Troubleshooting Guide](https://docs.cilium.io/en/stable/operations/troubleshooting/)
 - [Giant Swarm Handbook](https://handbook.giantswarm.io/docs/support-and-ops/ops-recipes/cilium-troubleshooting/)
 
-#### [Cilium Offical Links](#canal-offical-links)
+#### [Cilium Official Links](#canal-official-links)
 
 - [Documentation](https://docs.cilium.io)
 - [GitHub](https://github.com/cilium/cilium)
@@ -170,7 +170,7 @@ The following diagram illustrates how Calico works:
 - [Calico Deep Dive](https://www.linkedin.com/pulse/kubernetes-networking-fundamentals-calico-deep-dive-owolabi-adekoya/)
 - [Pod network troubleshooting while using Calico on Kubernetes](https://medium.com/@bikramgupta/pod-network-troubleshooting-while-using-calico-on-kubernetes-ee78b731d4d8)
 
-#### [Calico Offical Links](#canal-offical-links)
+#### [Calico Official Links](#canal-official-links)
 
 - [Documentation](https://docs.tigera.io/)
 - [GitHub](https://github.com/projectcalico/calico)
@@ -187,7 +187,7 @@ Multus is a meta-CNI plugin that allows a pod to have multiple network interface
 
 #### [Multus Installation](#multus-installation)
 
-[RKE2 offical install steps](https://docs.rke2.io/install/network_options#using-multus)
+[RKE2 official install steps](https://docs.rke2.io/install/network_options#using-multus)
 
 ```yaml
 # /var/lib/rancher/rke2/server/manifests/rke2-cilium-config.yaml
@@ -219,7 +219,7 @@ The following diagram illustrates how Multus works:
 
 TBD
 
-#### [Multus Offical Links](#multus-offical-links)
+#### [Multus Official Links](#multus-official-links)
 
 - [Documentation](https://github.com/k8snetworkplumbingwg/multus-cni/blob/master/docs/how-to-use.md)
 - [GitHub](https://github.com/k8snetworkplumbingwg/multus-cni)

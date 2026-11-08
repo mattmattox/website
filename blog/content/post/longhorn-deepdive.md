@@ -212,7 +212,7 @@ Before you design your Longhorn solution, you should be able to answer the follo
 3. **Latency**: What is the expected latency between nodes in the cluster?
 4. **Storage Access**: Do you need only RWO (Read Write Once) storage, or will you also need RWX (Read Write Many)?
 5. **App-Specific Redundancy**: Do any of your applications provide their own data replication or redundancy?
-6. **Storage network**: Will you be using a dedicated storage network, or will you be using the same network as your application traffic? If so, you should review the documention on [Storage Network](https://longhorn.io/docs/1.5.1/advanced-resources/deploy/storage-network/).
+6. **Storage network**: Will you be using a dedicated storage network, or will you be using the same network as your application traffic? If so, you should review the documentation on [Storage Network](https://longhorn.io/docs/1.5.1/advanced-resources/deploy/storage-network/).
 
 **Note**: Longhorn has an official performance scalability report published at [Longhorn Performance Scalability Report Aug 2020](https://longhorn.io/blog/performance-scalability-report-aug-2020/). Although the information is outdated, it provides valuable metrics for different cluster sizes.
 

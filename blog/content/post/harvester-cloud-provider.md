@@ -50,7 +50,7 @@ Before we begin, ensure that your Harvester environment is connected to your Ran
 - Find the setting "cluster-registration-url" and set it to the registration URL from the previous step.
 - Save the settings and wait for the cluster to appear in the Rancher UI. This may take a few minutes.
 - Once the cluster appears, you can manage it from the Rancher UI.
-- You can now proceed to create the Cloud Credentails for the Harvester.
+- You can now proceed to create the Cloud Credentials for the Harvester.
 - Go back to the Rancher UI and navigate to the "Cluster Management" section.
 - Click on "Cloud Credentials" and select "Add Cloud Credential".
 - Choose "Harvester" as the cloud provider and fill out the name and description fields.
@@ -374,7 +374,7 @@ If you encounter any issues when deploying RKE2 clusters on-top of Harvester usi
 - Check the Rancher UI for any errors or warnings.
 - The deployment `harvester-cloud-provider` in the namespace `kube-system` acts a bridge between the RKE2 cluster and Harvester. Check the logs for this deployment for any errors or warnings.
 - The deployment `harvester-csi-driver-controllers` in the namespace `kube-system` is responsible for the dynamic volume provisioning. Check the logs for this deployment for any errors or warnings. Note: Only one pod is leader and the others will set to `standby` state.
-- The deamonset `harvester-csi-driver` in the namespace `kube-system` is responsible for connecting kubelet to the Harvester storage. Check the logs for this deamonset for any errors or warnings.
+- The daemonset `harvester-csi-driver` in the namespace `kube-system` is responsible for connecting kubelet to the Harvester storage. Check the logs for this daemonset for any errors or warnings.
 
 ## Conclusion
 

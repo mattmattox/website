@@ -68,7 +68,7 @@ By default, Rancher Monitoring v2 is configured to monitor RKE1/2 and K3s cluste
 
 You can find the default values for the monitoring stack in the [Rancher Monitoring v2 Helm Chart](https://github.com/rancher/charts/blob/dev-v2.9/charts/rancher-monitoring/104.0.1%2Bup45.31.1/values.yaml).
 
-It's important to note the diffent sections for RKE1/2 and K3s clusters. 
+It's important to note the different sections for RKE1/2 and K3s clusters. 
 
 For example, if you are using RKE1 rkeControllerManager.enabled should be set to true. If you are using K3s, it should be set to false.
 
@@ -78,7 +78,7 @@ These will deploy different adapters mainly around etcd and other control plane 
 
 Grafana is deployed as a ClusterIP service by default. This means that it is only accessible from within the cluster. To access Grafana from outside the cluster, you will need to expose it using an Ingress or NodePort service.
 
-The easiest way is via the Rancher UI. Navigate to the cluster and the namespace cattle-monitoring-system. Then go to Service Discorvery and Service. Find on the service "rancher-monitoring-grafana" and click on the Target "nginx-http". This will open a new tab with the Grafana UI which is being proxied by the Rancher UI in the same way you would access it via kubectl port-forward.
+The easiest way is via the Rancher UI. Navigate to the cluster and the namespace cattle-monitoring-system. Then go to Service Discovery and Service. Find on the service "rancher-monitoring-grafana" and click on the Target "nginx-http". This will open a new tab with the Grafana UI which is being proxied by the Rancher UI in the same way you would access it via kubectl port-forward.
 
 NOTE: The default username and password for Grafana is admin/prom-operator. You will want to change this before exposing it to the internet.
 

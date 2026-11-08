@@ -119,7 +119,7 @@ kubectl annotate node gateway-node-1 submariner.io/public-ip=<public-ip>
 # TCP 8080 (metrics)
 ```
 
-### Gatewway HA Configuration
+### Gateway HA Configuration
 
 ```yaml
 # config/submariner-operator.yaml

@@ -71,7 +71,7 @@ systemctl start rke2-agent
 
 ### [RKE2 deploy via Rancher](#rke2-deploy-via-rancher)
 
-Offical documentation: [RKE2 - Rotate Certificates](https://ranchermanager.docs.rancher.com/how-to-guides/new-user-guides/manage-clusters/rotate-certificates)
+Official documentation: [RKE2 - Rotate Certificates](https://ranchermanager.docs.rancher.com/how-to-guides/new-user-guides/manage-clusters/rotate-certificates)
 
 1. Log in to the Rancher UI and navigate to the RKE2 cluster you want to rotate certificates for.
 
@@ -85,7 +85,7 @@ Offical documentation: [RKE2 - Rotate Certificates](https://ranchermanager.docs.
 
 ## [Monitoring RKE2 Certificate Expiration](#monitoring-rke2-certificate-expiration)
 
-To avoid the risk of certificates expiring without your knowledge, you should monitor their expiration dates. I recommand x509-certificate-exporter, a Prometheus exporter that collects and exports x509 certificate information. You can use this exporter to monitor the expiration dates of RKE2 certificates and set up alerts to notify you when certificates are nearing their expiration.
+To avoid the risk of certificates expiring without your knowledge, you should monitor their expiration dates. I recommend x509-certificate-exporter, a Prometheus exporter that collects and exports x509 certificate information. You can use this exporter to monitor the expiration dates of RKE2 certificates and set up alerts to notify you when certificates are nearing their expiration.
 
 Please refer to this post for more information: [Monitoring RKE2 Certificate Expiration with x509-certificate-exporter](https://support.tools/post/x509-certificate-exporter/)
 

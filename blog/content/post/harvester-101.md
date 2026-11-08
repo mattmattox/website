@@ -59,11 +59,11 @@ Linux Elements covers the underlying runs on OpenSUSE-based OS called SLE Micro.
 
 ### [Multis](#multis)
 
-Multis is the networking component of Harvester, providing a software-defined network for VMs. It's a perfect fit for Harvester, because it allows you to create mutiple network overlays for your VMs. For example, you might have a network for dev VMs and another for production VMs. This allows you to isolate the traffic for each network. And because it's fully VLAN aware, you can even extend your existing VLANs into Harvester.
+Multis is the networking component of Harvester, providing a software-defined network for VMs. It's a perfect fit for Harvester, because it allows you to create multiple network overlays for your VMs. For example, you might have a network for dev VMs and another for production VMs. This allows you to isolate the traffic for each network. And because it's fully VLAN aware, you can even extend your existing VLANs into Harvester.
 
 ### [KubeVIP](#kubevip)
 
-KubeVIP is the load balancing component of Harvester, providing a software-defined load balancer for VMs. It's a perfect fit for Harvester, because it allows you to create load balancers for your nested clusters without needing to intergrate with an external load balancer IE F5 or HAProxy or MetalLB and get BGP working correctly.
+KubeVIP is the load balancing component of Harvester, providing a software-defined load balancer for VMs. It's a perfect fit for Harvester, because it allows you to create load balancers for your nested clusters without needing to integrate with an external load balancer IE F5 or HAProxy or MetalLB and get BGP working correctly.
 
 ## [Harvester's Workflow Explained](#harvesters-workflow-explained)
 
@@ -78,11 +78,11 @@ It is important to understand that Harvester VMs are type 1 VMs, meaning they ha
 
 ## [Nested Kubernetes Clusters](#nested-kubernetes-clusters)
 
-Harvester's nested Kubernetes clusters are a game-changer. Because you get the best of both worlds, you can run VMs and containers side-by-side, all managed togther. This is a huge advantage over Proxmox or VMware, which require separate management interfaces for VMs and containers each not knowing what the other is doing. Harvester bridges this gap because Rancher is managing both the phyiscal, virtual, and kubernetes infrastructure.
+Harvester's nested Kubernetes clusters are a game-changer. Because you get the best of both worlds, you can run VMs and containers side-by-side, all managed together. This is a huge advantage over Proxmox or VMware, which require separate management interfaces for VMs and containers each not knowing what the other is doing. Harvester bridges this gap because Rancher is managing both the physical, virtual, and kubernetes infrastructure.
 
 Now one question that comes up is why would you want to run a nested Kubernetes cluster? Well, there are a few reasons:
 
-- Managing an OS on bare metal is hard, drivers, updates, etc. For example, if you need to patch the OS you need to drain the node, reboot, and then bring it back up. With a nested cluster, you can just mirgrate the workloads to another node, patch, and then migrate back.
+- Managing an OS on bare metal is hard, drivers, updates, etc. For example, if you need to patch the OS you need to drain the node, reboot, and then bring it back up. With a nested cluster, you can just migrate the workloads to another node, patch, and then migrate back.
 - You can run a different version of Kubernetes on the nested cluster. For example, you can run a 1.27 cluster on one of the nested clusters and 1.26 on the other. This allows you to test upgrades before you do them on your production cluster.
 - Isolation. You can run a nested cluster for your dev team and another for your production team. This allows you to isolate the workloads and resources for each team without needing to buy more hardware.
 

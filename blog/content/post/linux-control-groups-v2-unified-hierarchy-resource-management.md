@@ -729,7 +729,7 @@ groups:
           ) by (namespace)
 ```
 
-### cgroup v2 Debuging
+### cgroup v2 Debugging
 
 ```bash
 # Check if a container is throttled

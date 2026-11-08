@@ -8,7 +8,7 @@ more_link: "yes"
 title: "How to use OPA Gatekeeper to require a label on all namespaces."
 ---
 
-By default, Kubernetes will create namespaces without any labels. This can tracking the owner of the namespace difcult. Also, by having all namespaces labeled. You can use labels for running show-back and charge-back reports based on owner labels.
+By default, Kubernetes will create namespaces without any labels. This can tracking the owner of the namespace difficult. Also, by having all namespaces labeled. You can use labels for running show-back and charge-back reports based on owner labels.
 
 <!--more-->
 # [Pre-requisites](#pre-requisites)

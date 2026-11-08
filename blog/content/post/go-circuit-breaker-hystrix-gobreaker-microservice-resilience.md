@@ -48,7 +48,7 @@ With circuit breakers:
 | Fallback | First-class | Manual |
 | Metrics stream | SSE endpoint (Hystrix Dashboard) | Custom |
 | Thread safety | Yes | Yes |
-| Maintenance | Low (afew releases/year) | Active |
+| Maintenance | Low (a few releases/year) | Active |
 
 Use **hystrix-go** when you need a Hystrix Dashboard or are migrating from Java Hystrix. Use **gobreaker** when you want a simple, well-tested state machine to wrap yourself.
 
